@@ -1,0 +1,55 @@
+schema_version: 1
+concept:
+  id: chr-lighthouse-keeper-001
+  name: Fyrvaktaren
+  version: 1.0.0
+  type: character
+  status: locked
+  medium: game
+purpose:
+  narrative_role: ensam väktare i en översvämmad kustvärld
+  production_goal: underlag för sprites, porträtt och illustration
+visual_identity:
+  silhouette: lång och smal med stora rundade axlar och kompakt lykthuvud
+  proportions:
+    notes: långa ben, smal torso, överdimensionerade axlar
+  dominant_shapes: [vertical_rectangles, circles]
+  asymmetry: [large_industrial_left_arm, slim_maintenance_right_arm]
+palette:
+  primary: faded_yellow
+  secondary: oxidized_dark_steel
+  accent: warm_amber
+  distribution: gul torso, mörka leder, bärnstensljus i huvud och bröst
+materials:
+  - id: painted_steel
+    finish: matte_worn
+  - id: cloudy_glass
+    finish: internally_lit
+fixed_features:
+  - lantern_shaped_head
+  - circular_chest_hatch
+  - asymmetric_arms
+allowed_variation:
+  - pose
+  - minor_tools
+  - surface_wear
+  - lighting
+forbidden_changes:
+  - human_facial_features
+  - glossy_clean_surfaces
+  - symmetrical_arms
+open_questions:
+  - exact_back_service_panel_layout
+references:
+  - id: ref-front-01
+    role: authoritative_design_reference
+    status: approved
+  - id: ref-hero-01
+    role: mood_reference
+    status: approved
+handoff:
+  recipient: game_graphics_creator
+  requested_outputs: [character_sprite_specification, portrait_reference]
+  acceptance_criteria:
+    - silhouette readable at gameplay scale
+    - fixed features preserved

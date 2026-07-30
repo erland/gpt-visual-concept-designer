@@ -1,0 +1,46 @@
+schema_version: 1
+schema_name: visual-concept-designer-concept-spec
+required_sections:
+  - concept
+  - visual_identity
+  - fixed_features
+  - allowed_variation
+  - references
+
+fields:
+  concept:
+    required: [id, name, version, type, status]
+    status_values:
+      - exploration
+      - selected
+      - refinement
+      - locked
+      - production_reference
+      - deprecated
+  purpose:
+    required: []
+  visual_identity:
+    required: [silhouette]
+  palette:
+    required: []
+  materials:
+    required: []
+  fixed_features:
+    type: list
+  allowed_variation:
+    type: list
+  forbidden_changes:
+    type: list
+  open_questions:
+    type: list
+  references:
+    type: list
+    reference_roles:
+      - authoritative_design_reference
+      - authoritative_color_reference
+      - mood_reference
+      - composition_reference
+      - exploration_only
+      - deprecated
+  handoff:
+    required: []

@@ -1,0 +1,24 @@
+concept:
+  id: veh-dune-skimmer-001
+  name: Dune Skimmer
+  type: vehicle
+  medium: game_and_animation
+  status: locked
+purpose:
+  function: lokal last- och persontransport över hård ökenmark
+  users: resursfattig bosättning med begränsade reservdelar
+visual_identity:
+  silhouette: låg triangulär kil med avtagbar rektangulär lastmodul
+  scale: 5.5 meter lång, två personer plus last
+palette:
+  primary: solblekt ockra
+  secondary: mörk grafit
+  accent: turkos identifieringsmarkering
+materials: [nitad aluminiumlegering, keramiska värmesköldar, gummi, duk]
+fixed_features:
+  - trepunktslandning
+  - låg kilform
+  - avtagbar bakre lastmodul
+  - exponerade filter och serviceluckor
+allowed_variation: [lastmodul, märkning, lokala reparationer, last]
+avoid: [lyxig finish, osynliga servicelösningar, hög blank cockpitkupol]

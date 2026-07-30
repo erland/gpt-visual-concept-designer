@@ -1,0 +1,33 @@
+schema_version: 2
+project:
+  id: project-example-001
+  title: Example Concept Project
+  version: 0.1.0
+  status: active
+  media: [game]
+  created_at: YYYY-MM-DD
+  updated_at: YYYY-MM-DD
+  authoritative_bundle: true
+indexes:
+  concept_manifest: manifests/concepts.yaml
+  image_manifest: manifests/images.yaml
+  style_bibles:
+    - world/visual-style-bible.md
+  decision_logs:
+    - world/decision-log.md
+concepts:
+  - id: chr-example-001
+    type: character
+    title: Example Character
+    version: 0.1.0
+    status: exploration
+    specification: concepts/characters/chr-example-001/concept-spec.yaml
+    approved_images: []
+    style_bible: world/visual-style-bible.md
+relationships: []
+authoritative_references: []
+handoff:
+  overall_status: not_started
+  targets: []
+  packages: []
+notes: []

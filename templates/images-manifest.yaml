@@ -1,0 +1,16 @@
+schema_version: 1
+images:
+  - id: img-chr-example-001-rough-a
+    concept_id: chr-example-001
+    file: concepts/characters/chr-example-001/images/exploration/chr-example-001__rough__silhouette-a__v01.png
+    revision: 1
+    stage: rough
+    status: exploration
+    roles: [exploration_only]
+    defines: [silhouette_direction]
+    must_not_define: [final_materials, exact_costume_details]
+    source:
+      type: generated
+      concept_version: 0.1.0
+    replaces: []
+    notes: []

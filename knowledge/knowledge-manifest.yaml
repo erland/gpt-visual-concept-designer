@@ -1,0 +1,239 @@
+schema_version: 1
+library_version: 1.2.0
+default_language: sv
+status: complete
+documents:
+- id: K01
+  file: 01-visual-design-foundations.md
+  title: Visuella designgrunder
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - all
+  related:
+  - K02
+  - K13
+- id: K02
+  file: 02-guided-creative-process.md
+  title: Guidad kreativ process
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - all
+  related:
+  - K01
+  - K03
+  - K06
+- id: K03
+  file: 03-character-design-and-roles.md
+  title: Karaktärsdesign och roller
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - character
+  related:
+  - K01
+  - K03
+  - K04
+  - K14
+- id: K04
+  file: 04-costume-clothing-and-armor.md
+  title: Kläder, rustningar och utrustning
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - character
+  related:
+  - K03
+  - K09
+  - K10
+- id: K05
+  file: 05-creature-and-monster-design.md
+  title: Varelse- och monsterdesign
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - creature
+  related:
+  - K01
+  - K06
+  - K11
+- id: K06
+  file: 06-environment-and-world-design.md
+  title: Miljö- och världsdesign
+  status: complete
+  owner_prompt: 6
+  primary_topics:
+  - environment
+  related:
+  - K07
+  - K09
+  - K10
+  - K13
+- id: K07
+  file: 07-architecture-and-set-design.md
+  title: Arkitektur och scenografi
+  status: complete
+  owner_prompt: 6
+  primary_topics:
+  - architecture
+  - environment
+  related:
+  - K06
+  - K09
+  - K10
+  - K16
+  - K17
+- id: K08
+  file: 08-vehicles-props-and-equipment.md
+  title: Fordon, farkoster, props och utrustning
+  status: complete
+  owner_prompt: 5
+  primary_topics:
+  - vehicle
+  related:
+  - K01
+  - K10
+  - K12
+  - K14
+- id: K09
+  file: 09-historical-periods-overview.md
+  title: Historiska perioder – översikt
+  status: complete
+  owner_prompt: 7
+  primary_topics:
+  - all
+  related:
+  - K04
+  - K06
+  - K07
+  - K10
+- id: K10
+  file: 10-material-culture-and-technology.md
+  title: Materiell kultur och teknik
+  status: complete
+  owner_prompt: 7
+  primary_topics:
+  - all
+  related:
+  - K04
+  - K07
+  - K08
+  - K09
+  - K12
+- id: K11
+  file: 11-fantasy-design.md
+  title: Fantasydesign
+  status: complete
+  owner_prompt: 8
+  primary_topics:
+  - all
+  related:
+  - K05
+  - K06
+  - K07
+  - K10
+- id: K12
+  file: 12-science-fiction-and-future-design.md
+  title: Science fiction och framtidsdesign
+  status: complete
+  owner_prompt: 8
+  primary_topics:
+  - all
+  related:
+  - K06
+  - K07
+  - K08
+  - K10
+- id: K13
+  file: 13-visual-language.md
+  title: 'Visuellt språk: berättande, färg, ljus och material'
+  status: complete
+  owner_prompt: 9
+  primary_topics:
+  - all
+  related:
+  - K01
+  - K06
+  - K13
+  - K18
+- id: K14
+  file: 14-reference-sheet-methods.md
+  title: Metoder för referensark
+  status: complete
+  owner_prompt: 9
+  primary_topics:
+  - all
+  related:
+  - K03
+  - K08
+  - K13
+  - K15
+- id: K15
+  file: 15-style-bible-and-consistency.md
+  title: Style Bible och konsekvens
+  status: complete
+  owner_prompt: 10
+  primary_topics:
+  - all
+  related:
+  - K14
+  - K19
+  - K20
+- id: K16
+  file: 16-game-and-comics-concept-design.md
+  title: Konceptdesign för spel och serier
+  status: complete
+  owner_prompt: 9
+  primary_topics:
+  - all
+  related:
+  - K03
+  - K06
+  - K07
+  - K08
+  - K14
+- id: K17
+  file: 17-animation-specific-concept-design.md
+  title: Konceptdesign för animation
+  status: complete
+  owner_prompt: 9
+  primary_topics:
+  - all
+  related:
+  - K03
+  - K05
+  - K13
+  - K14
+- id: K18
+  file: 18-pitch-art-and-presentation.md
+  title: Pitch art och presentation
+  status: complete
+  owner_prompt: 9
+  primary_topics:
+  - all
+  related:
+  - K13
+  - K14
+- id: K19
+  file: 19-sketch-analysis-and-refinement.md
+  title: Skissanalys och förfining
+  status: complete
+  owner_prompt: 10
+  primary_topics:
+  - all
+  related:
+  - K02
+  - K14
+  - K15
+- id: K20
+  file: 20-concept-handoff-format.md
+  title: Format för koncepthandoff
+  status: complete
+  owner_prompt: 10
+  primary_topics:
+  - all
+  related:
+  - K14
+  - K15
+  - K19

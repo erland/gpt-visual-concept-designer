@@ -1,0 +1,35 @@
+schema_version: 1
+concept:
+  id: veh-dune-salvager-001
+  name: Sandsamlaren
+  version: 1.0.0
+  type: vehicle
+  status: locked
+  medium: animation
+visual_identity:
+  silhouette: låg trekroppsplattform med högt segelliknande dammfilter
+  dominant_shapes: [low_wedges, tall_vertical_filter]
+palette:
+  primary: sun_bleached_orange
+  secondary: repaired_aluminum
+  accent: blue_service_marks
+materials:
+  - patched_sheet_metal
+  - woven_filter_fabric
+fixed_features:
+  - three_track_modules
+  - vertical_dust_filter
+  - rear_salvage_crane
+allowed_variation:
+  - cargo
+  - repair_panels
+  - crew_markings
+forbidden_changes:
+  - enclosed_luxury_cabin
+  - polished_factory_finish
+open_questions:
+  - exact_steering_linkage
+references: []
+handoff:
+  recipient: animation_design_team
+  requested_outputs: [turnaround, moving_parts_sheet]

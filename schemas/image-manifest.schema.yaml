@@ -1,0 +1,27 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: visual-concept-image-manifest.schema.yaml
+title: Visual Concept Image Manifest
+type: object
+required: [schema_version, images]
+properties:
+  schema_version: {type: integer, const: 1}
+  images:
+    type: array
+    items:
+      type: object
+      required: [id, concept_id, file, stage, status, roles]
+      properties:
+        id: {type: string, minLength: 1}
+        concept_id: {type: string, minLength: 1}
+        file: {type: string, minLength: 1}
+        revision: {type: integer, minimum: 1}
+        stage: {enum: [thumbnail, silhouette, rough, refined, hero, reference, source_sketch, mood]}
+        status: {enum: [exploration, candidate, approved, deprecated, missing]}
+        roles:
+          type: array
+          items:
+            enum: [authoritative_design_reference, authoritative_color_reference, authoritative_material_reference, authoritative_proportion_reference, mood_reference, composition_reference, exploration_only]
+        defines: {type: array, items: {type: string}}
+        must_not_define: {type: array, items: {type: string}}
+        replaces: {type: array, items: {type: string}}
+        notes: {type: array, items: {type: string}}

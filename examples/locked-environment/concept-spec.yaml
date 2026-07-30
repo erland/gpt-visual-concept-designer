@@ -1,0 +1,36 @@
+schema_version: 1
+concept:
+  id: env-tidal-harbor-001
+  name: Tidvattenshamnen
+  version: 1.0.0
+  type: environment
+  status: locked
+  medium: comics
+visual_identity:
+  silhouette: terrasserad hamn med höga stödpelare och smala gångbroar
+  dominant_shapes: [horizontal_layers, tall_piers, narrow_bridges]
+palette:
+  primary: weathered_limestone
+  secondary: sea_green_copper
+  accent: signal_red
+materials:
+  - salt_worn_stone
+  - oxidized_copper
+  - tarred_timber
+fixed_features:
+  - three_tidal_levels
+  - central_lift_tower
+  - red_navigation_markers
+allowed_variation:
+  - tide_height
+  - weather
+  - market_activity
+forbidden_changes:
+  - modern_glass_facades
+  - wide_automobile_roads
+open_questions:
+  - underground_storage_layout
+references: []
+handoff:
+  recipient: comics_environment_artist
+  requested_outputs: [recurring_location_reference]

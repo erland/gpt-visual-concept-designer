@@ -1,0 +1,25 @@
+concept:
+  id: chr-lantern-keeper-001
+  name: Fyrväktaren
+  type: character
+  medium: game
+  status: locked
+purpose:
+  narrative_role: ensam underhållsrobot som återknyter öarnas fyrsystem
+  gameplay_role: exploration, repair, environmental puzzles
+visual_identity:
+  silhouette: hög smal kropp, runt lykthusformat huvud, breda rundade axlar
+  proportions: långa ben, kort torso, liten huvudvolym ovanför axlarna
+  dominant_shapes: [circles, vertical_rectangles]
+palette:
+  primary: blekt varmgult
+  secondary: mörkt oxiderat stål
+  accent: bärnstensfärgat ljus
+materials: [målat stål, åldrad mässing, grumligt glas, gummi]
+fixed_features:
+  - lykthusformat huvud utan mänskligt ansikte
+  - asymmetriska armar
+  - rund servicelucka på bröstet
+  - tydlig varm ljuskälla i huvudet
+allowed_variation: [pose, ytslitage, små verktyg, väder, belysning]
+avoid: [militär stil, blanka rena ytor, symmetriska armar, mänskliga ögon]

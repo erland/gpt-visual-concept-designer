@@ -1,0 +1,147 @@
+schema_version: 1
+suite: visual-concept-designer
+project_version: 1.2.0
+rubric: assessment-rubric.md
+run_template: test-run-template.md
+result_levels:
+- PASS
+- PASS_WITH_NOTES
+- FAIL
+- BLOCKED
+summary:
+  total_tests: 22
+  critical_path_tests: 12
+categories:
+- onboarding
+- character
+- environment
+- architecture
+- vehicle
+- prop
+- creature
+- history
+- fantasy
+- science_fiction
+- sketch
+- image_pipeline
+- consistency
+- handoff
+- medium_adaptation
+- project_bundle
+tests:
+- id: T01
+  file: cases/T01-vague-character-beginner.md
+  title: Vag karaktärsidé för nybörjare
+  category: character
+  critical_path: true
+- id: T02
+  file: cases/T02-i-dont-know-guidance.md
+  title: Jag vet inte-svar
+  category: onboarding
+  critical_path: true
+- id: T03
+  file: cases/T03-expert-fast-track.md
+  title: Erfaren användare med tydlig brief
+  category: onboarding
+  critical_path: false
+- id: T04
+  file: cases/T04-mysterious-city.md
+  title: Miljö och världslogik
+  category: environment
+  critical_path: true
+- id: T05
+  file: cases/T05-functional-building.md
+  title: Funktionell byggnad och interiör
+  category: architecture
+  critical_path: false
+- id: T06
+  file: cases/T06-alien-desert-vehicle.md
+  title: Ökenfordon på främmande planet
+  category: vehicle
+  critical_path: false
+- id: T07
+  file: cases/T07-fictional-prop-weapon.md
+  title: Fiktivt vapen som visuell prop
+  category: prop
+  critical_path: false
+- id: T08
+  file: cases/T08-swamp-creature.md
+  title: Träskvarelse med ekologisk logik
+  category: creature
+  critical_path: false
+- id: T09
+  file: cases/T09-historical-anchoring.md
+  title: Historisk korrekthetsnivå
+  category: history
+  critical_path: true
+- id: T10
+  file: cases/T10-magic-system-consequences.md
+  title: Magins synliga konsekvenser
+  category: fantasy
+  critical_path: false
+- id: T11
+  file: cases/T11-future-technology-lifecycle.md
+  title: Framtidsteknikens livscykel
+  category: science_fiction
+  critical_path: false
+- id: T12
+  file: cases/T12-sketch-preservation.md
+  title: Skissanalys och bevarande
+  category: sketch
+  critical_path: true
+  requires_attachment: true
+- id: T13
+  file: cases/T13-rough-before-refined.md
+  title: Rough exploration före slutbild
+  category: image_pipeline
+  critical_path: true
+- id: T14
+  file: cases/T14-hero-art-from-locked-design.md
+  title: Hero art från låst design
+  category: image_pipeline
+  critical_path: false
+- id: T15
+  file: cases/T15-animation-reference-sheet.md
+  title: Referensark för animation
+  category: medium_adaptation
+  critical_path: true
+- id: T16
+  file: cases/T16-ten-years-later-consistency.md
+  title: Samma karaktär tio år senare
+  category: consistency
+  critical_path: true
+- id: T17
+  file: cases/T17-game-to-comics-adaptation.md
+  title: Anpassning från spel till serie
+  category: medium_adaptation
+  critical_path: false
+- id: T18
+  file: cases/T18-production-handoff.md
+  title: Produktionshandoff till Game Graphics Creator
+  category: handoff
+  critical_path: true
+- id: T19
+  file: cases/T19-project-bundle-create.md
+  title: Skapa nytt projektpaket
+  category: project_bundle
+  critical_path: true
+- id: T20
+  file: cases/T20-project-bundle-import.md
+  title: Importera och uppdatera projektpaket
+  category: project_bundle
+  critical_path: true
+- id: T21
+  file: cases/T21-image-authority.md
+  title: Avgränsad bildauktoritet
+  category: project_bundle
+  critical_path: true
+- id: T22
+  file: cases/T22-missing-image.md
+  title: Saknad tidigare bild
+  category: project_bundle
+  critical_path: true
+latest_analysis:
+  method: specification_extension_review
+  result: PASS_WITH_NOTES
+  report: results/test-results.md
+  manual_preflight_required: true

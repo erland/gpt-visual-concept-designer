@@ -1,0 +1,67 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: visual-concept-project.schema.yaml
+title: Visual Concept Project Manifest
+type: object
+required: [schema_version, project, indexes, concepts, relationships, authoritative_references, handoff]
+properties:
+  schema_version: {type: integer, const: 2}
+  project:
+    type: object
+    required: [id, title, version, status, authoritative_bundle]
+    properties:
+      id: {type: string, minLength: 1}
+      title: {type: string, minLength: 1}
+      version: {type: string, pattern: '^\d+\.\d+\.\d+([+-][0-9A-Za-z.-]+)?$'}
+      status: {enum: [active, paused, archived]}
+      media: {type: array, items: {type: string}}
+      created_at: {type: string}
+      updated_at: {type: string}
+      authoritative_bundle: {type: boolean}
+  indexes:
+    type: object
+    required: [concept_manifest, image_manifest]
+    properties:
+      concept_manifest: {type: string}
+      image_manifest: {type: string}
+      style_bibles: {type: array, items: {type: string}}
+      decision_logs: {type: array, items: {type: string}}
+  concepts:
+    type: array
+    items:
+      type: object
+      required: [id, type, title, version, status, specification]
+      properties:
+        id: {type: string}
+        type: {enum: [character, creature, environment, architecture, vehicle, prop, other]}
+        title: {type: string}
+        version: {type: string}
+        status: {enum: [exploration, candidate, approved, locked, deprecated]}
+        specification: {type: string}
+        approved_images: {type: array, items: {type: string}}
+        style_bible: {type: string}
+  relationships:
+    type: array
+    items:
+      type: object
+      required: [from, relation, to]
+      properties:
+        from: {type: string}
+        relation: {type: string}
+        to: {type: string}
+        notes: {type: string}
+  authoritative_references:
+    type: array
+    items:
+      type: object
+      required: [scope, role, image_id]
+      properties:
+        scope: {type: string}
+        role: {enum: [design, silhouette, proportions, palette, materials, costume, mood, composition, other]}
+        image_id: {type: string}
+  handoff:
+    type: object
+    properties:
+      overall_status: {enum: [not_started, preparing, ready, delivered]}
+      targets: {type: array, items: {type: string}}
+      packages: {type: array, items: {type: string}}
+  notes: {type: array, items: {type: string}}

@@ -1,0 +1,53 @@
+# Visual Concept Designer
+
+**Version:** 1.0.0  
+**Status:** Första stabila release  
+**Plansteg:** [PLAN2] Prompt 14 – Preflight, exempelprojekt och releasepaket
+
+Visual Concept Designer är en guidande visuell designpartner för TV-spel, serietidningar, animation, illustration, brädspel och pitchmaterial. GPT:n hjälper både nybörjare och erfarna kreatörer att gå från vag idé eller befintlig skiss till ett sammanhängande visuellt koncept och ett användbart produktionsunderlag.
+
+## Kärnbeteende
+
+- börjar normalt i text och hjälper användaren precisera avsikten,
+- ställer högst tre frågor åt gången som normalregel,
+- ger konkreta alternativ när användaren inte vet vad den vill,
+- använder rough exploration före hög detaljnivå när riktningen är osäker,
+- skiljer tydligt mellan exploration, refinement, locked design och production reference,
+- kan arbeta från uppladdad skiss utan att ersätta kärnidén,
+- dokumenterar bekräftade beslut, öppna frågor och rekommendationer,
+- skapar handoff till mänskliga kreatörer eller specialiserade GPT:er.
+
+## Projektstruktur
+
+- `product/` – mål, avgränsning, designprinciper och definition of done.
+- `workflow/` – arbetslägen, process, bildpolicy och skiss/lås/handoff-flöde.
+- `models/` – motivmodeller och leveranstyper.
+- `templates/` – briefar, Style Bible, skissanalys och kvalitetskontroller.
+- `schemas/` – maskinläsbar konceptspecifikation.
+- `knowledge/` – 24 kompletta knowledge-filer.
+- `gpt/` – huvudinstruktion, namn, beskrivning, starters och inställningar.
+- `tests/` – 18 testfall, bedömningsmatris och testresultat.
+- `examples/` – tre kompletta exempelprojekt samt låsta konceptspecifikationer.
+- `release/` – preflight- och releasekontroller.
+
+## Installera GPT:n
+
+Följ `INSTALLATION.md`. Börja med att kopiera `gpt/gpt-instructions.md` till GPT:ns instruktioner och ladda därefter upp knowledge-filerna enligt `knowledge/knowledge-manifest.yaml`.
+
+## Användning
+
+Se `USAGE.md` för nybörjarflöde, expertsnabbspår, skissläge, designlåsning och handoff.
+
+## Releasekvalitet
+
+- 20 av 20 knowledge-filer är kompletta och anpassade till GPT-gränsen.
+- 18 av 18 testfall finns och är strukturellt validerade.
+- Huvudinstruktionen ryms inom 8 000 tecken.
+- Tre kompletta exempelprojekt ingår.
+- Versionsinformation och manifest är synkroniserade.
+
+Se `release/PREFLIGHT-REPORT.md` och `RELEASE-NOTES.md` för detaljer.
+
+## Project Bundle Workflow (v1.1)
+
+GPT:n kan skapa och uppdatera versionsmärkta projekt-zippar som samlar konceptbeskrivningar, specifikationer, Style Bible, bilder, bildroller, manifest, changelog och handoff-material. Senaste godkända projekt-zip används som auktoritativ källa vid fortsatt arbete. Se `workflow/project-bundle-workflow.md`.
