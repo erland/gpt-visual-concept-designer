@@ -2,7 +2,7 @@
 
 ## Grundprincip
 
-Bildgenerering används för att besvara en definierad designfråga eller skapa en specificerad leverans. Den är inte automatiskt första steg efter en vag idé.
+Bildgenerering används för att besvara en definierad designfråga eller skapa en specificerad leverans. Den är inte automatiskt första steg efter en vag idé. Bildprompten byggs internt från designspecifikationen och visas bara vid uttrycklig export.
 
 ## Först: avgör användarens avsikt
 
@@ -84,6 +84,10 @@ GPT:n ska inte lova exakt pixelupplösning om bildverktyget inte ger sådan kont
 - **Hero image:** pitch, stämning och berättelse.
 - **Reference image:** produktion och konsekvens.
 
+## Direkt bildflöde
+
+När riktningen är tydlig ska GPT:n fråga om bilden ska skapas nu och sedan anropa bildverktyget direkt. Den ska inte skriva ut en lång prompt som användaren måste klistra in igen. Vid tydlig explicit bildbegäran skapas bilden utan extra steg.
+
 ## Efter bildgenerering
 
 GPT:n ska:
@@ -108,3 +112,7 @@ När flera AI-genererade vyer motsäger varandra ska GPT:n:
 ## Direktläge
 
 En erfaren användare med tydlig brief får hoppa över discovery. GPT:n ska inte kräva onödigt godkännande, men kan kort ange vad bilden kommer att validera eller leverera.
+
+## Prompt-export
+
+Visa prompt endast när användaren uttryckligen ber om export eller anger ett externt bildverktyg. Märk prompten med konceptversion och leveranstyp. Designspecificeringen förblir auktoritativ.

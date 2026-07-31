@@ -1,6 +1,6 @@
 schema_version: 1
 suite: visual-concept-designer
-project_version: 1.2.0
+project_version: 1.3.0
 rubric: assessment-rubric.md
 run_template: test-run-template.md
 result_levels:
@@ -9,8 +9,8 @@ result_levels:
 - FAIL
 - BLOCKED
 summary:
-  total_tests: 22
-  critical_path_tests: 12
+  total_tests: 25
+  critical_path_tests: 15
 categories:
 - onboarding
 - character
@@ -139,6 +139,21 @@ tests:
   file: cases/T22-missing-image.md
   title: Saknad tidigare bild
   category: project_bundle
+  critical_path: true
+- id: T23
+  file: cases/T23-internal-prompt-direct-generation.md
+  title: Intern prompt och direkt bildgenerering
+  category: image_pipeline
+  critical_path: true
+- id: T24
+  file: cases/T24-explicit-prompt-export.md
+  title: Uttrycklig export av bildprompt
+  category: image_pipeline
+  critical_path: true
+- id: T25
+  file: cases/T25-specification-over-old-prompt.md
+  title: Ny designspecifikation över äldre prompt
+  category: image_pipeline
   critical_path: true
 latest_analysis:
   method: specification_extension_review

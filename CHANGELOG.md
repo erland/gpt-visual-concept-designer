@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0
+## 1.3.0
 
 - Konsoliderade knowledge-biblioteket från 24 till exakt 20 uppladdningsbara filer utan att ta bort ämnesinnehåll.
 - Slog ihop karaktär + roller, fordon + props, visuellt berättande + färg/ljus/material samt spel + serier.
@@ -8,7 +8,7 @@
 - Lade till arbetsflödesguide för manifest-synkronisering och auktoritetsregler.
 - Uppdaterade validering och dokumentation för GPT:s 20-filsgräns.
 
-## 1.2.0 – Project Bundle Workflow
+## 1.3.0 – Project Bundle Workflow
 
 - Lagt till versionsmärkta projekt-zippar som auktoritativ källa.
 - Lagt till projekt-, koncept- och bildmanifest.
@@ -166,7 +166,7 @@ Genomför [PLAN2] Prompt 6 – Miljö och arkitektur.
 ## 0.5.0 – Knowledge-arkitektur
 
 - Skapade `knowledge/` som separat domänlager.
-- Definierade ursprungligen 24 knowledge-filer med unika ansvarsområden; v1.2.0 konsoliderar dem till 20 uppladdningsbara filer.
+- Definierade ursprungligen 24 knowledge-filer med unika ansvarsområden; v1.3.0 konsoliderar dem till 20 uppladdningsbara filer.
 - Lade till `knowledge-manifest.yaml` med ID, status, ägarprompt, ämnen och relationer.
 - Lade till gemensam dokumentstandard för metadata, rubriker och skrivregler.
 - Lade till routing-, ägarskaps- och konfliktprioritetsregler.
@@ -254,3 +254,11 @@ Genomför [PLAN2] Prompt 1 – Produktdefinition och arkitektur.
 - `knowledge-manifest.yaml` uppdaterat till version 0.5.0 och status `partially-populated`.
 - K01–K05, K08 och K08 ändrade från `skeleton` till `complete`.
 - README och versionsinformation uppdaterade för Prompt 5.
+
+## 1.3.0
+
+- Inför intern promptmotor där designspecifikationen är sanningskälla.
+- Bildprompt visas endast vid uttrycklig export.
+- Efter accepterad riktning frågar GPT:n om bilden ska skapas och anropar sedan bildverktyget direkt.
+- Lägger till readiness-kontroll, resultatkontroll och prompt-exportregler.
+- Lägger till tre testfall för direkt generering, prompt-export och specifikationsauktoritet.

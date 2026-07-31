@@ -58,3 +58,7 @@ Be om en handoff när konceptet ska lämnas till en illustratör, animatör, 3D-
 6. Använd alltid den senaste zippen som underlag i en ny chatt.
 
 Exempel: `Importera denna projekt-zip, markera den nya frontbilden som auktoritativ för proportioner och ge mig en uppdaterad zip.`
+
+## Skapa bild utan att kopiera prompt
+
+Efter att en riktning har valts svarar du exempelvis ”Ja, skapa bilden”. GPT:n ska då använda bildverktyget direkt. Skriv ”Exportera prompten för [verktyg]” endast när du faktiskt vill ha prompttexten.

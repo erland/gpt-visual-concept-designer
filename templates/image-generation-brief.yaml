@@ -1,0 +1,27 @@
+schema_version: 1
+concept_id: con-001
+concept_version: 0.1.0
+deliverable:
+  type: rough_concept
+  purpose: validate_silhouette
+  medium: general_concept_art
+readiness:
+  direction_selected: true
+  fixed_traits_defined: true
+  open_questions_allowed:
+    - minor_surface_detail
+fixed_traits: []
+allowed_variation: []
+forbidden_changes: []
+authoritative_references: []
+internal_prompt:
+  persistence: transient
+  expose_to_user: false
+exported_prompt:
+  requested: false
+  target_tool: null
+result_review:
+  status: pending
+  conforms: []
+  deviations: []
+  authority_decision: not_assessed
