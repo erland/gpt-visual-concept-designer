@@ -44,3 +44,8 @@ Dokumentera resultatet med `tests/test-run-template.md`.
 ## Projekt-zippar
 
 Aktivera Data Analysis/Code Interpreter för att GPT:n ska kunna importera, validera, skapa och exportera versionsmärkta projekt-zippar.
+
+
+## Bildverktyg
+
+Aktivera både **Image generation** och **Code Interpreter & Data Analysis**. Prompt Compiler ser till att Code Interpreter endast används för projektfiler och zip-paket, medan konstnärliga bilder alltid går till Image generation.

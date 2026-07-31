@@ -1,22 +1,43 @@
-schema_version: 1
+schema_version: 2
 concept_id: con-001
 concept_version: 0.1.0
 deliverable:
   type: rough_concept
   purpose: validate_silhouette
   medium: general_concept_art
-readiness:
-  direction_selected: true
-  fixed_traits_defined: true
-  open_questions_allowed:
-    - minor_surface_detail
+compiler:
+  profile: standard
+  target_max_words: 600
+  primary_validation_goal: silhouette
+  include:
+    - subject_and_action
+    - composition
+    - fixed_identity_traits
+    - relevant_materials_and_colors
+    - lighting_and_style
+  exclude:
+    - project_manifest
+    - decision_history
+    - rejected_alternatives
+    - file_metadata
+  fallback:
+    enabled: true
+    attempts: 1
+    profile: minimal
+    keep:
+      - subject
+      - composition
+      - three_to_seven_fixed_traits
+      - style
+      - lighting
 fixed_traits: []
 allowed_variation: []
 forbidden_changes: []
 authoritative_references: []
-internal_prompt:
+internal_brief:
   persistence: transient
   expose_to_user: false
+  compiled: false
 exported_prompt:
   requested: false
   target_tool: null

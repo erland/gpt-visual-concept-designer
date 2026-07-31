@@ -62,3 +62,8 @@ Exempel: `Importera denna projekt-zip, markera den nya frontbilden som auktorita
 ## Skapa bild utan att kopiera prompt
 
 Efter att en riktning har valts svarar du exempelvis ”Ja, skapa bilden”. GPT:n ska då använda bildverktyget direkt. Skriv ”Exportera prompten för [verktyg]” endast när du faktiskt vill ha prompttexten.
+
+
+## När en bild ska skapas
+
+Svara ja på frågan om att skapa bilden. GPT:n bygger då en kort intern brief och anropar Image generation direkt. Du behöver inte kopiera någon prompt. Om första anropet misslyckas görs automatiskt ett enda förenklat omförsök.

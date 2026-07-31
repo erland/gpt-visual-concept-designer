@@ -165,6 +165,18 @@ tests:
   title: Bildverktyget är inte tillgängligt
   category: image_tool_failure
   critical_path: true
+- id: T28
+  title: Prompt Compiler compression
+  file: cases/T28-prompt-compiler-compression.md
+  category: image_generation
+- id: T29
+  title: Single compressed retry
+  file: cases/T29-image-generation-single-retry.md
+  category: image_generation
+- id: T30
+  title: Retry failure reporting
+  file: cases/T30-retry-failure-reporting.md
+  category: image_generation
 latest_analysis:
   method: specification_extension_review
   result: PASS_WITH_NOTES

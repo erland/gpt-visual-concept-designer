@@ -1,14 +1,19 @@
-# Release Notes – Visual Concept Designer v1.3.1
+# Release Notes — Visual Concept Designer v1.4.0
 
-Denna korrigeringsversion skärper verktygsvalet för bildgenerering. Konstnärliga bilder ska alltid skapas med ChatGPTs Image generation. Code Interpreter får fortfarande användas för projekt-zippar och strukturerade filer, men aldrig för att skapa SVG-liknande konceptbilder eller placeholders.
+## Huvudnyhet: Prompt Compiler
 
-## Konfiguration
+Den fullständiga designspecifikationen skickas inte längre direkt till bildverktyget. En intern kompilator skapar i stället en kort, sammanhängande bildbrief med endast sådant som påverkar den aktuella bilden.
 
-- Aktivera **Image generation**.
-- Aktivera **Code Interpreter & Data Analysis** för projektpaket.
-- Sätt **GPT-5.6** som rekommenderad modell om den finns; annars välj den starkaste allmänna bildkapabla modellen.
-- Canvas behövs inte.
+Det minskar risken för bildfel efter långa planeringssessioner och bevarar samtidigt designspecifikationen som projektets sanningskälla.
 
-## Validering
+## Kontrollerad fallback
 
-Releasepaketet verifierar instruktionens teckenlängd, 20 knowledge-filer, testmanifest och zip-integritet.
+Om första bildanropet misslyckas skapas en minimal brief med motiv, komposition, 3–7 fasta identitetsdrag, stil och ljus. GPT:n gör exakt ett nytt försök. Vid fortsatt fel rapporteras detta tydligt; SVG eller annan programmatisk ersättning är förbjuden.
+
+## Kompatibilitet
+
+- 20 knowledge-filer
+- GPT-instruktion under 8 000 tecken
+- 30 testfall
+- Image generation och Code Interpreter kan fortsatt vara aktiverade samtidigt
+

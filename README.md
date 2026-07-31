@@ -52,6 +52,11 @@ Se `release/PREFLIGHT-REPORT.md` och `RELEASE-NOTES.md` för detaljer.
 
 GPT:n kan skapa och uppdatera versionsmärkta projekt-zippar som samlar konceptbeskrivningar, specifikationer, Style Bible, bilder, bildroller, manifest, changelog och handoff-material. Senaste godkända projekt-zip används som auktoritativ källa vid fortsatt arbete. Se `workflow/project-bundle-workflow.md`.
 
-## Bildflöde i v1.3.1
+## Bildflöde i v1.4.0
 
 Designspecifikationen är projektets sanningskälla. När en riktning är klar frågar GPT:n om den ska skapa bilden och genererar den direkt. Bildprompten byggs internt och visas bara om användaren ber om prompt-export.
+
+
+## Bildgenerering i v1.4.0
+
+Bildprompter kompileras internt från designspecifikationen. Endast bildrelevanta uppgifter skickas till Image generation. Vid fel görs ett enda omförsök med en minimal brief.

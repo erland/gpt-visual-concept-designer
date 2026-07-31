@@ -1,4 +1,4 @@
-# Preflight-rapport – v1.3.1
+# Preflight-rapport – v1.4.0
 
 ## Resultat
 
@@ -26,7 +26,7 @@ Följande kan inte bevisas enbart av projektfilerna och måste följas upp vid f
 - precision vid analys av komplexa eller otydliga skisser,
 - hur bildverktygets aktuella funktioner påverkar referensark och upplösning.
 
-Dessa är inte blockerande för v1.3.1 eftersom instruktionerna uttryckligen hanterar verktygsbegränsningar och testpaketet finns för fortsatt regressionstestning.
+Dessa är inte blockerande för v1.4.0 eftersom instruktionerna uttryckligen hanterar verktygsbegränsningar och testpaketet finns för fortsatt regressionstestning.
 
 ## v1.1-tillägg
 
@@ -35,10 +35,12 @@ Dessa är inte blockerande för v1.3.1 eftersom instruktionerna uttryckligen han
 - Fyra nya bundle-tester finns.
 - Dataanalys/kod är rekommenderad för zip-arbetsflödet.
 
-## v1.3.1-tillägg
+## v1.4.0-tillägg
 
 - Intern promptmotor dokumenterad.
 - Direkt bildflöde utan kopiera/klistra-in-steg.
 - Prompt-export separerad från bildgenerering.
 - Designspecificering har företräde framför äldre promptar.
 - Tre nya kritiska testfall tillagda.
+
+- Prompt Compiler och minimal single-retry fallback verifierade.

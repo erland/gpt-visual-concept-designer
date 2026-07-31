@@ -1,6 +1,16 @@
 # Changelog
 
-## 1.3.1 – Image Tool Routing Fix
+## 1.4.0
+
+- Inför Prompt Compiler som separerar full designspecifikation från bildverktygets korta brief.
+- Begränsar normal bildbrief till relevanta, synliga uppgifter och normalt cirka 600 ord.
+- Filtrerar bort manifest, filmetadata, historik, avvisade alternativ och långa resonemang.
+- Inför ett enda kontrollerat omförsök med minimal brief när Image generation misslyckas.
+- Förbjuder fortsatt SVG-, Python- och diagramfallback.
+- Uppdaterar bildbriefmallen till schema version 2.
+- Lägger till test T28–T30 för kompilering, omförsök och felrapportering.
+
+## 1.4.0 – Image Tool Routing Fix
 
 - Kräver Image generation för all konstnärlig bildproduktion.
 - Förbjuder SVG, Python, HTML, Canvas och diagram som ersättning för konceptkonst.
