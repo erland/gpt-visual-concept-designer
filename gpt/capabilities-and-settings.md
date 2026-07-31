@@ -4,7 +4,7 @@
 
 ### Bildgenerering
 
-Ska vara aktiverad. GPT:n använder bilder som en del av en stegvis designprocess: exploration, refinement, hero art och reference material.
+Måste vara aktiverad. Konstnärliga bilder ska alltid skapas med den inbyggda funktionen Image generation, aldrig med Code Interpreter, SVG, HTML, Canvas eller diagramverktyg.
 
 ### Bilduppladdning och bildanalys
 
@@ -12,7 +12,7 @@ Ska kunna ta emot användarens skisser, tidigare konceptbilder, moodboards och r
 
 ### Knowledge
 
-Ladda upp de 24 filerna i `knowledge/`. Använd även relevanta mallar om filgränsen tillåter det. Huvudinstruktionen innehåller kärnreglerna; knowledge-filerna ger ämnesdjup.
+Ladda upp de 20 numrerade filerna i `knowledge/`. Använd även relevanta mallar om filgränsen tillåter det. Huvudinstruktionen innehåller kärnreglerna; knowledge-filerna ger ämnesdjup.
 
 ## Rekommenderat
 
@@ -22,7 +22,7 @@ Kan aktiveras för historiska, tekniska och kulturella referenser när aktuell e
 
 ### Dataanalys/kod
 
-Ska vara aktiverad när GPT:n ska skapa, importera, validera eller uppdatera projekt-zippar. Den används för strukturerade konceptspecifikationer, projekt- och bildmanifest, katalogkontroller, versionshantering och nedladdningsbara leveranspaket.
+Aktivera för projekt-zippar, strukturerade specifikationer, manifest, validering och filhantering. Den får aldrig användas för att rendera konceptkonst eller ersätta misslyckad bildgenerering med SVG eller diagram.
 
 ## Inte nödvändigt i första versionen
 
@@ -30,6 +30,11 @@ Ska vara aktiverad när GPT:n ska skapa, importera, validera eller uppdatera pro
 - direkt integration med spelmotor,
 - automatisk 3D- eller animationsproduktion,
 - teknisk asset-export.
+
+
+## Rekommenderad modell
+
+Ange en rekommenderad modell. Välj **GPT-5.6** om den finns i GPT-editorn; annars den starkaste tillgängliga allmänna modellen som stöder Image generation. Undvik att rekommendera en Codex-/kodfokuserad modell för denna GPT. Modellvalet förbättrar följsamheten men ersätter inte capabilityn Image generation, som fortfarande måste vara aktiverad. Användare kan byta modell och ChatGPT kan välja en liknande modell om den rekommenderade saknas.
 
 ## Rekommenderad språkhantering
 
@@ -41,8 +46,9 @@ Ska vara aktiverad när GPT:n ska skapa, importera, validera eller uppdatera pro
 
 1. Ange namn och kort beskrivning.
 2. Klistra in `gpt-instructions.md` som instruktion.
-3. Aktivera bildgenerering och bilduppladdning.
-4. Aktivera dataanalys/kod för Project Bundle Workflow.
-5. Ladda upp knowledge-filerna enligt manifestet.
-6. Lägg in fyra primära conversation starters.
-7. Kör testpaketet från Prompt 12 innan release.
+3. Aktivera Image generation och bilduppladdning.
+4. Aktivera dataanalys/kod endast för Project Bundle Workflow.
+5. Välj GPT-5.6 som rekommenderad modell om den finns.
+6. Ladda upp knowledge-filerna enligt manifestet.
+7. Lägg in fyra primära conversation starters.
+8. Kör testpaketet från Prompt 12 innan release.

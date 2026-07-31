@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.1 – Image Tool Routing Fix
+
+- Kräver Image generation för all konstnärlig bildproduktion.
+- Förbjuder SVG, Python, HTML, Canvas och diagram som ersättning för konceptkonst.
+- Begränsar Code Interpreter till projektfiler, manifest, validering och zip-paket.
+- Lägger till visuell kvalitetsstandard för konceptbilder och reference sheets.
+- Rekommenderar GPT-5.6 som recommended model när alternativet finns.
+- Lägger till regressionstest för SVG-ersättning och misslyckat bildverktyg.
+
+
 ## 1.3.0
 
 - Konsoliderade knowledge-biblioteket från 24 till exakt 20 uppladdningsbara filer utan att ta bort ämnesinnehåll.

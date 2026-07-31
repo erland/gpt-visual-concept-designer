@@ -155,6 +155,16 @@ tests:
   title: Ny designspecifikation över äldre prompt
   category: image_pipeline
   critical_path: true
+- id: T26
+  file: cases/T26-no-svg-substitute.md
+  title: Ingen SVG-ersättning för konceptbild
+  category: image_tool_routing
+  critical_path: true
+- id: T27
+  file: cases/T27-image-tool-unavailable.md
+  title: Bildverktyget är inte tillgängligt
+  category: image_tool_failure
+  critical_path: true
 latest_analysis:
   method: specification_extension_review
   result: PASS_WITH_NOTES

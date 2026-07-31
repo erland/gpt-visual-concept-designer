@@ -7,7 +7,7 @@ tests=manifest.get('tests', [])
 ids=[t.get('id') for t in tests]
 files=[t.get('file') for t in tests]
 errors=[]
-if len(ids)!=25: errors.append(f'Expected 25 test IDs, got {len(ids)}')
+if len(ids)!=27: errors.append(f'Expected 27 test IDs, got {len(ids)}')
 if len(set(ids))!=len(ids): errors.append('Duplicate test IDs')
 for rel in files:
     if not rel or not (root/'tests'/rel).exists(): errors.append(f'Missing {rel}')
