@@ -60,3 +60,22 @@ Designspecifikationen är projektets sanningskälla. När en riktning är klar f
 ## Bildgenerering i v1.4.0
 
 Bildprompter kompileras internt från designspecifikationen. Endast bildrelevanta uppgifter skickas till Image generation. Vid fel görs ett enda omförsök med en minimal brief.
+
+
+## Distributionspaket
+
+Repositoryt kan bygga två distributionsformat från samma aktuella GPT-konfiguration:
+
+- `visual-concept-designer-custom-gpt-vX.Y.Z.zip` för installation/uppdatering av Custom GPT.
+- `visual-concept-designer-chat-vX.Y.Z.zip` för att bifogas direkt i en vanlig ChatGPT-konversation.
+
+Kör lokalt:
+
+```bash
+python3 scripts/build_distributions.py
+python3 scripts/validate_distributions.py
+```
+
+Vanliga byggen använder `VERSION`. Vid en publicerad GitHub Release används release-taggen som versionskälla. En release `v1.1.0` producerar alltså automatiskt båda `...v1.1.0.zip` och bifogar dem till releasen.
+
+Custom GPT-paketets huvudinstruktion, conversation starters och 20 numrerade Knowledge-filer kopieras utan innehållsförändring från de kanoniska källorna.
