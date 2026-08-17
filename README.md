@@ -1,8 +1,7 @@
 # Visual Concept Designer
 
 **Version:** 1.0.0  
-**Status:** Första stabila release  
-**Plansteg:** [PLAN2] Prompt 14 – Preflight, exempelprojekt och releasepaket
+**Status:** Aktiv GPT-konfiguration  
 
 Visual Concept Designer är en guidande visuell designpartner för TV-spel, serietidningar, animation, illustration, brädspel och pitchmaterial. GPT:n hjälper både nybörjare och erfarna kreatörer att gå från vag idé eller befintlig skiss till ett sammanhängande visuellt koncept och ett användbart produktionsunderlag.
 
@@ -24,11 +23,11 @@ Visual Concept Designer är en guidande visuell designpartner för TV-spel, seri
 - `models/` – motivmodeller och leveranstyper.
 - `templates/` – briefar, Style Bible, skissanalys och kvalitetskontroller.
 - `schemas/` – maskinläsbar konceptspecifikation.
-- `knowledge/` – 24 kompletta knowledge-filer.
+- `knowledge/` – 20 aktuella knowledge-filer.
 - `gpt/` – huvudinstruktion, namn, beskrivning, starters och inställningar.
-- `tests/` – 18 testfall, bedömningsmatris och testresultat.
-- `examples/` – tre kompletta exempelprojekt samt låsta konceptspecifikationer.
-- `release/` – preflight- och releasekontroller.
+- `tests/` – aktuella regressionstest, bedömningsmatris och validering.
+- `examples/` – aktuella exempelprojekt och låsta konceptspecifikationer.
+- `release/` – aktuell validerare för projektpaket.
 
 ## Installera GPT:n
 
@@ -38,15 +37,12 @@ Följ `INSTALLATION.md`. Börja med att kopiera `gpt/gpt-instructions.md` till G
 
 Se `USAGE.md` för nybörjarflöde, expertsnabbspår, skissläge, designlåsning och handoff.
 
-## Releasekvalitet
+## Kvalitetssäkring
 
-- 20 av 20 knowledge-filer är kompletta och anpassade till GPT-gränsen.
-- 18 av 18 testfall finns och är strukturellt validerade.
-- Huvudinstruktionen ryms inom 8 000 tecken.
-- Tre kompletta exempelprojekt ingår.
-- Versionsinformation och manifest är synkroniserade.
-
-Se `release/PREFLIGHT-REPORT.md` och `RELEASE-NOTES.md` för detaljer.
+- 20 av 20 Knowledge-filer är definierade i manifestet.
+- Huvudinstruktionen valideras mot plattformens teckengräns.
+- Regressionstester och paketvaliderare finns kvar som aktuella QA-verktyg.
+- Historiska testresultat, preflight-rapporter, changelog och äldre release notes finns i Git-historiken och lagras inte längre i working tree.
 
 ## Project Bundle Workflow (v1.1)
 
@@ -60,3 +56,22 @@ Designspecifikationen är projektets sanningskälla. När en riktning är klar f
 ## Bildgenerering i v1.4.0
 
 Bildprompter kompileras internt från designspecifikationen. Endast bildrelevanta uppgifter skickas till Image generation. Vid fel görs ett enda omförsök med en minimal brief.
+
+
+## Distributionspaket
+
+Repositoryt kan bygga två distributionsformat från samma aktuella GPT-konfiguration:
+
+- `visual-concept-designer-custom-gpt-vX.Y.Z.zip` för installation/uppdatering av Custom GPT.
+- `visual-concept-designer-chat-vX.Y.Z.zip` för att bifogas direkt i en vanlig ChatGPT-konversation.
+
+Kör lokalt:
+
+```bash
+python3 scripts/build_distributions.py
+python3 scripts/validate_distributions.py
+```
+
+Vanliga byggen använder `VERSION`. Vid en publicerad GitHub Release används release-taggen som versionskälla. En release `v1.1.0` producerar alltså automatiskt båda `...v1.1.0.zip` och bifogar dem till releasen.
+
+Custom GPT-paketets huvudinstruktion, conversation starters och 20 numrerade Knowledge-filer kopieras utan innehållsförändring från de kanoniska källorna.
