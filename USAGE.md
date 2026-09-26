@@ -67,3 +67,7 @@ Efter att en riktning har valts svarar du exempelvis ”Ja, skapa bilden”. GPT
 ## När en bild ska skapas
 
 Svara ja på frågan om att skapa bilden. GPT:n bygger då en kort intern brief och anropar Image generation direkt. Du behöver inte kopiera någon prompt. Om första anropet misslyckas görs automatiskt ett enda förenklat omförsök.
+
+## Runtime-notering
+
+Den aktiva runtime-målbilden definieras i `runtime-distribution-registry.yaml`. Chat och Custom GPT är aktiva. Claude Projects, OpenCode och OpenAI Plugin är inte aktiva eftersom deras nuvarande parity är reducerad för projektets kritiska bildflöde.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import argparse, hashlib, json, os, re, shutil, zipfile
+import argparse, hashlib, json, os, re, shutil, zipfile, yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -48,8 +48,18 @@ def zip_dir(src,out):
                 info.external_attr=0o644 << 16
                 z.writestr(info,p.read_bytes())
 
+def registry_targets():
+    r=yaml.safe_load((ROOT/"runtime-distribution-registry.yaml").read_text(encoding="utf-8"))
+    targets=list(r.get("active_targets",[]) or [])
+    supported={"chat","custom-gpt"}
+    unknown=set(targets)-supported
+    if unknown:
+        raise SystemExit(f"Registry contains unsupported active targets: {sorted(unknown)}")
+    return targets
+
 def build(version):
     version=semver(version)
+    targets=registry_targets()
     kfiles=manifest_knowledge_files()
     shutil.rmtree(DIST, ignore_errors=True)
     DIST.mkdir()
@@ -58,10 +68,12 @@ def build(version):
     shutil.rmtree(stage, ignore_errors=True)
     custom=stage/"custom"
     chat=stage/"chat"
-    custom.mkdir(parents=True); chat.mkdir(parents=True)
+    if "custom-gpt" in targets: custom.mkdir(parents=True)
+    if "chat" in targets: chat.mkdir(parents=True)
 
     # Custom GPT distribution: current install/config + exact knowledge and optional templates.
-    for rel in [
+    if "custom-gpt" in targets:
+      for rel in [
         "README.md","INSTALLATION.md","USAGE.md",
         "gpt/gpt-instructions.md","gpt/gpt-name-and-description.md",
         "gpt/welcome-message.md","gpt/capabilities-and-settings.md",
@@ -69,42 +81,45 @@ def build(version):
     ]:
         if (ROOT/rel).exists():
             copy_file(ROOT/rel, custom/rel)
-    for f in kfiles:
+      for f in kfiles:
         copy_file(ROOT/"knowledge"/f, custom/"knowledge"/f)
-    copy_tree(ROOT/"templates", custom/"templates")
-    (custom/"VERSION").write_text(version+"\n", encoding="utf-8")
+      copy_tree(ROOT/"templates", custom/"templates")
+      (custom/"VERSION").write_text(version+"\n", encoding="utf-8")
 
     # Portable chat
-    copy_file(ROOT/"portable/START-HERE.md", chat/"START-HERE.md")
-    copy_file(ROOT/"gpt/gpt-instructions.md", chat/"assistant/instructions.md")
-    copy_file(ROOT/"gpt/conversation-starters.md", chat/"assistant/conversation-starters.md")
-    copy_file(ROOT/"gpt/gpt-name-and-description.md", chat/"assistant/name-and-description.md")
-    copy_file(ROOT/"gpt/capabilities-and-settings.md", chat/"assistant/capabilities-and-settings.md")
-    for f in kfiles:
-        copy_file(ROOT/"knowledge"/f, chat/"knowledge"/f)
-    copy_file(ROOT/"knowledge/knowledge-manifest.yaml", chat/"knowledge/knowledge-manifest.yaml")
-    copy_tree(ROOT/"templates", chat/"templates")
-    # Non-primary supporting material useful for long projects / QA
-    for d in ["schemas","examples","workflow","models"]:
-        copy_tree(ROOT/d, chat/"supporting"/d)
-    (chat/"VERSION").write_text(version+"\n", encoding="utf-8")
+    if "chat" in targets:
+      copy_file(ROOT/"portable/START-HERE.md", chat/"START-HERE.md")
+      copy_file(ROOT/"assistant/instructions.md", chat/"assistant/instructions.md")
+      copy_file(ROOT/"gpt/conversation-starters.md", chat/"assistant/conversation-starters.md")
+      copy_file(ROOT/"gpt/gpt-name-and-description.md", chat/"assistant/name-and-description.md")
+      copy_file(ROOT/"gpt/capabilities-and-settings.md", chat/"assistant/capabilities-and-settings.md")
+      for f in kfiles:
+          copy_file(ROOT/"knowledge"/f, chat/"knowledge"/f)
+      copy_file(ROOT/"knowledge/knowledge-manifest.yaml", chat/"knowledge/knowledge-manifest.yaml")
+      copy_tree(ROOT/"templates", chat/"templates")
+      # Non-primary supporting material useful for long projects / QA
+      for d in ["schemas","examples","workflow","models"]:
+          copy_tree(ROOT/d, chat/"supporting"/d)
+      (chat/"VERSION").write_text(version+"\n", encoding="utf-8")
 
-    files={}
-    for p in sorted(chat.rglob("*")):
-        if p.is_file() and p.name!="MANIFEST.json":
-            files[str(p.relative_to(chat)).replace(os.sep,"/")]=sha256(p)
-    (chat/"MANIFEST.json").write_text(json.dumps({
-        "package":"visual-concept-designer",
-        "format":"portable-chat-assistant",
-        "version":version,
-        "entrypoint":"START-HERE.md",
-        "instructions":"assistant/instructions.md",
-        "knowledge_count":20,
-        "files":files
-    },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+      files={}
+      for p in sorted(chat.rglob("*")):
+          if p.is_file() and p.name!="MANIFEST.json":
+              files[str(p.relative_to(chat)).replace(os.sep,"/")]=sha256(p)
+      (chat/"MANIFEST.json").write_text(json.dumps({
+          "package":"visual-concept-designer",
+          "format":"portable-chat-assistant",
+          "version":version,
+          "entrypoint":"START-HERE.md",
+          "instructions":"assistant/instructions.md",
+          "knowledge_count":20,
+          "files":files
+      },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
-    zip_dir(custom, DIST/f"visual-concept-designer-custom-gpt-v{version}.zip")
-    zip_dir(chat, DIST/f"visual-concept-designer-chat-v{version}.zip")
+    if "custom-gpt" in targets:
+        zip_dir(custom, DIST/f"visual-concept-designer-custom-gpt-v{version}.zip")
+    if "chat" in targets:
+        zip_dir(chat, DIST/f"visual-concept-designer-chat-v{version}.zip")
     shutil.rmtree(stage, ignore_errors=True)
 
 if __name__=="__main__":

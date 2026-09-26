@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import argparse, hashlib, json, re, zipfile
+import argparse, hashlib, json, re, zipfile, yaml
 
 ROOT=Path(__file__).resolve().parents[1]
 DIST=ROOT/"dist"
@@ -18,42 +18,66 @@ def read(z,n):
     except KeyError: raise SystemExit(f"Saknad fil i zip: {n}")
 
 def main(version):
+    registry=yaml.safe_load((ROOT/"runtime-distribution-registry.yaml").read_text(encoding="utf-8"))
+    active=list(registry.get("active_targets",[]) or [])
+    expected={registry["targets"][name]["artifact_pattern"].format(version=version) for name in active}
+    actual={p.name for p in DIST.glob("*.zip")}
+    if actual != expected:
+        raise SystemExit(f"Distribution set mismatch. expected={sorted(expected)} actual={sorted(actual)}")
+
     custom=DIST/f"visual-concept-designer-custom-gpt-v{version}.zip"
     chat=DIST/f"visual-concept-designer-chat-v{version}.zip"
-    for p in [custom,chat]:
-        if not p.is_file(): raise SystemExit(f"Saknad distribution: {p.name}")
+    for p in [DIST/name for name in sorted(expected)]:
         with zipfile.ZipFile(p) as z:
             bad=z.testzip()
             if bad: raise SystemExit(f"Korrupt zip {p.name}: {bad}")
 
     kfs=knowledge_files()
-    with zipfile.ZipFile(custom) as z:
-        if read(z,"gpt/gpt-instructions.md") != (ROOT/"gpt/gpt-instructions.md").read_bytes():
-            raise SystemExit("Custom GPT-instruktionen avviker från källan")
-        if read(z,"gpt/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
-            raise SystemExit("Custom GPT starters avviker")
-        for f in kfs:
-            if read(z,f"knowledge/{f}") != (ROOT/"knowledge"/f).read_bytes():
-                raise SystemExit(f"Custom Knowledge avviker: {f}")
-        if read(z,"VERSION").decode().strip()!=version:
-            raise SystemExit("Fel VERSION i custom-paket")
+    if "custom-gpt" in active:
+      with zipfile.ZipFile(custom) as z:
+          if read(z,"gpt/gpt-instructions.md") != (ROOT/"assistant/instructions.md").read_bytes():
+              raise SystemExit("Custom GPT-instruktionen avviker från källan")
+          if read(z,"gpt/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
+              raise SystemExit("Custom GPT starters avviker")
+          for f in kfs:
+              if read(z,f"knowledge/{f}") != (ROOT/"knowledge"/f).read_bytes():
+                  raise SystemExit(f"Custom Knowledge avviker: {f}")
+          if read(z,"VERSION").decode().strip()!=version:
+              raise SystemExit("Fel VERSION i custom-paket")
+          custom_instr=read(z,"gpt/gpt-instructions.md").decode("utf-8")
+          for marker in [
+              "Anropa sedan alltid **Image generation**",
+              "Designspecifikationen är sanningskällan",
+              "Analysera eller ändra bara en bild som finns i konversationen.",
+          ]:
+              if marker not in custom_instr:
+                  raise SystemExit(f"Custom GPT saknar kritisk beteendemarkör: {marker}")
 
-    with zipfile.ZipFile(chat) as z:
-        if read(z,"assistant/instructions.md") != (ROOT/"gpt/gpt-instructions.md").read_bytes():
-            raise SystemExit("Portable instruktion avviker")
-        if read(z,"assistant/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
-            raise SystemExit("Portable starters avviker")
-        for f in kfs:
-            if read(z,f"knowledge/{f}") != (ROOT/"knowledge"/f).read_bytes():
-                raise SystemExit(f"Portable Knowledge avviker: {f}")
-        if read(z,"VERSION").decode().strip()!=version:
-            raise SystemExit("Fel VERSION i portable-paket")
-        m=json.loads(read(z,"MANIFEST.json"))
-        if m["version"]!=version or m["knowledge_count"]!=20:
-            raise SystemExit("Fel portable manifestversion/knowledge_count")
-        for name, expected in m["files"].items():
-            if sha_bytes(read(z,name))!=expected:
-                raise SystemExit(f"Hashfel i portable manifest: {name}")
+    if "chat" in active:
+      with zipfile.ZipFile(chat) as z:
+          if read(z,"assistant/instructions.md") != (ROOT/"assistant/instructions.md").read_bytes():
+              raise SystemExit("Portable instruktion avviker")
+          if read(z,"assistant/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
+              raise SystemExit("Portable starters avviker")
+          for f in kfs:
+              if read(z,f"knowledge/{f}") != (ROOT/"knowledge"/f).read_bytes():
+                  raise SystemExit(f"Portable Knowledge avviker: {f}")
+          if read(z,"VERSION").decode().strip()!=version:
+              raise SystemExit("Fel VERSION i portable-paket")
+          chat_instr=read(z,"assistant/instructions.md").decode("utf-8")
+          for marker in [
+              "Anropa sedan alltid **Image generation**",
+              "Designspecifikationen är sanningskällan",
+              "Analysera eller ändra bara en bild som finns i konversationen.",
+          ]:
+              if marker not in chat_instr:
+                  raise SystemExit(f"Chat saknar kritisk beteendemarkör: {marker}")
+          m=json.loads(read(z,"MANIFEST.json"))
+          if m["version"]!=version or m["knowledge_count"]!=20:
+              raise SystemExit("Fel portable manifestversion/knowledge_count")
+          for name, expected in m["files"].items():
+              if sha_bytes(read(z,name))!=expected:
+                  raise SystemExit(f"Hashfel i portable manifest: {name}")
     print(f"OK: båda distributionerna för v{version} är validerade.")
 
 if __name__=="__main__":

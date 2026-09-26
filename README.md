@@ -60,10 +60,12 @@ Bildprompter kompileras internt från designspecifikationen. Endast bildrelevant
 
 ## Distributionspaket
 
-Repositoryt kan bygga två distributionsformat från samma aktuella GPT-konfiguration:
+Repositoryt bygger aktiva runtime-distributioner från samma canonical GPT-kontrakt i `assistant/instructions.md`. Aktiva mål deklareras i `runtime-distribution-registry.yaml`:
 
 - `visual-concept-designer-custom-gpt-vX.Y.Z.zip` för installation/uppdatering av Custom GPT.
 - `visual-concept-designer-chat-vX.Y.Z.zip` för att bifogas direkt i en vanlig ChatGPT-konversation.
+
+Claude Projects, OpenCode och OpenAI Plugin är compatibility-bedömda men inte aktiva distributionsmål eftersom full parity för kritisk Image generation inte kan garanteras; Plugin har dessutom reducerad project-state-parity.
 
 Kör lokalt:
 
@@ -75,3 +77,7 @@ python3 scripts/validate_distributions.py
 Vanliga byggen använder `VERSION`. Vid en publicerad GitHub Release används release-taggen som versionskälla. En release `v1.1.0` producerar alltså automatiskt båda `...v1.1.0.zip` och bifogar dem till releasen.
 
 Custom GPT-paketets huvudinstruktion, conversation starters och 20 numrerade Knowledge-filer kopieras utan innehållsförändring från de kanoniska källorna.
+
+## GPT Byggaren 1.5.0
+
+Migreringen är **7/7 komplett**. Canonical instruktion finns i `assistant/instructions.md`; `gpt/gpt-instructions.md` bevaras som legacy-kompatibel paketeringsyta. Build, validering och release-set härleds från `runtime-distribution-registry.yaml`. Version **1.0.0** och 20/20 Knowledge-filer är bevarade.
