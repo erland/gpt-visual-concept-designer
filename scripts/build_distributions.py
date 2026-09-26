@@ -76,7 +76,7 @@ def build(version):
 
     # Portable chat
     copy_file(ROOT/"portable/START-HERE.md", chat/"START-HERE.md")
-    copy_file(ROOT/"gpt/gpt-instructions.md", chat/"assistant/instructions.md")
+    copy_file(ROOT/"assistant/instructions.md", chat/"assistant/instructions.md")
     copy_file(ROOT/"gpt/conversation-starters.md", chat/"assistant/conversation-starters.md")
     copy_file(ROOT/"gpt/gpt-name-and-description.md", chat/"assistant/name-and-description.md")
     copy_file(ROOT/"gpt/capabilities-and-settings.md", chat/"assistant/capabilities-and-settings.md")
