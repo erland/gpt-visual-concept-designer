@@ -57,7 +57,7 @@ def main() -> int:
     if behavior["retry_policy"]["image_generation_max_retries_after_failure"] != 1:
         errors.append("image generation retry policy must remain exactly one retry")
 
-    artifacts = contract["contracts"]["artifacts"]
+    artifacts = contract["contracts"]["artifacts"]["required"]
     if artifacts["generated_image"]["generation_tool"] != "image_generation":
         errors.append("generated_image must use image_generation")
     if artifacts["generated_image"]["programmatic_substitute_allowed"] is not False:
