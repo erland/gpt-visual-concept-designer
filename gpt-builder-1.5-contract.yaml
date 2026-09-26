@@ -1,0 +1,115 @@
+schema_version: 1
+builder:
+  target_version: 1.5.0
+  strategy: normalize_existing_canonical_contract
+  behavior_preserving: true
+
+canonical:
+  project_contract: gpt-project.yaml
+  instruction: assistant/instructions.md
+  legacy_instruction: gpt/gpt-instructions.md
+  version_file: VERSION
+  knowledge_manifest: knowledge/knowledge-manifest.yaml
+
+contracts:
+  capabilities:
+    critical:
+      - image_generation
+      - image_upload_and_analysis
+    required:
+      - guided_visual_design
+      - design_specification_management
+      - sketch_preservation
+      - visual_maturity_control
+      - image_generation_routing
+      - consistency_analysis
+      - project_bundle_management
+      - explicit_handoff
+    optional:
+      - web_research
+      - code_for_structured_file_operations
+
+  artifacts:
+    required:
+      design_specification:
+        authority: primary
+        formats:
+          - markdown
+          - yaml
+      generated_image:
+        generation_tool: image_generation
+        programmatic_substitute_allowed: false
+      project_bundle:
+        format: zip
+        authority: latest_explicitly_approved_bundle
+        overwrite_original: false
+      handoff:
+        format: markdown
+    conditional:
+      exported_prompt:
+        condition: explicit_user_request_or_reproduction_need
+        authority: non_primary
+
+  state:
+    authority:
+      short_session: current_design_specification
+      long_project: latest_explicitly_approved_project_bundle
+    conversation_only_authority_for_long_projects: false
+    design_specification_is_source_of_truth: true
+    prompt_is_source_of_truth: false
+    image_authority_requires_user_approval: true
+
+  tools:
+    required:
+      - id: image-generation
+        purpose: artistic_image_creation_and_editing
+        substitute_with_code: false
+      - id: image-input
+        purpose: analyze_existing_user_supplied_visual_reference
+        missing_target_policy: request_upload_or_identification
+    supporting:
+      - id: code
+        purpose:
+          - manifest_management
+          - validation
+          - file_handling
+          - zip_packaging
+        artistic_rendering_allowed: false
+      - id: web
+        purpose: factual_reference_research
+        may_override_user_design_decisions: false
+
+behavior:
+  image_generation_required_for_artistic_images: true
+  programmatic_art_substitute_allowed: false
+  missing_image_may_be_invented: false
+  design_specification_is_source_of_truth: true
+  old_prompt_may_override_new_specification: false
+  locked_design_requires_user_confirmation: true
+  max_normal_questions_per_turn: 3
+  retry_policy:
+    image_generation_max_retries_after_failure: 1
+    fallback_after_second_failure: report_failure_without_placeholder
+
+knowledge:
+  expected_files: 20
+  manifest: knowledge/knowledge-manifest.yaml
+  core_behavior_may_depend_on_knowledge_only: false
+
+release_policy:
+  current_version: 1.0.0
+  preserve_version_during_migration: true
+
+runtime_policy:
+  active:
+    chat:
+      compatibility: equivalent_runtime_dependent
+    custom-gpt:
+      compatibility: equivalent_with_platform_constraints
+  assessment_pending:
+    claude:
+      compatibility: assessment_pending
+    opencode:
+      compatibility: assessment_pending
+    openai_plugin:
+      compatibility: assessment_pending
