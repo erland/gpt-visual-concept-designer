@@ -1,0 +1,45 @@
+schema_version: 1
+project:
+  id: visual-concept-designer
+  name: Visual Concept Designer
+  profile: guided_creative
+instructions:
+  canonical: assistant/instructions.md
+  legacy_source: gpt/gpt-instructions.md
+  preserve_legacy_source_byte_identical: true
+knowledge_architecture:
+  canonical_root: knowledge
+  manifest: knowledge/knowledge-manifest.yaml
+  expected_files: 20
+runtime:
+  chat_zip:
+    enabled: true
+  custom_gpt:
+    enabled: true
+    instruction:
+      source: assistant/instructions.md
+      max_characters: 8000
+    knowledge:
+      strategy: exact_manifest
+      max_files: 20
+  claude:
+    enabled: false
+    compatibility: assessment_pending
+  opencode:
+    enabled: false
+    compatibility: assessment_pending
+  openai_plugin:
+    enabled: false
+    compatibility: assessment_pending
+capabilities:
+  critical:
+    - image_generation
+    - image_upload_and_analysis
+  important:
+    - structured_project_files
+    - web_research_optional
+    - code_for_project_bundle_only
+release:
+  version_file: VERSION
+  preserve_current_version: true
+  current_version: 1.0.0
