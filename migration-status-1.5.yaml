@@ -1,0 +1,54 @@
+schema_version: 1
+project:
+  id: visual-concept-designer
+  name: Visual Concept Designer
+  version: 1.0.0
+
+migration:
+  target_builder_version: 1.5.0
+  strategy: behavior_preserving
+  plan: docs/gpt-builder-1.5-runtime-migration.md
+  total_steps: 7
+
+progress:
+  current_step: 2
+  last_completed_step: 1
+  completed_steps:
+    - 1
+  skipped_steps: []
+  inserted_steps: []
+
+state:
+  overall: pass
+  blocking_issues: []
+  warnings:
+    - "Claude, OpenCode och OpenAI Plugin är ännu inte compatibility-bedömda och är därför inte aktiva."
+
+preservation:
+  legacy_instruction: gpt/gpt-instructions.md
+  canonical_instruction: assistant/instructions.md
+  legacy_instruction_byte_identical: true
+  version_file: VERSION
+  preserve_version_1_0_0: true
+  preserve_knowledge_20_of_20: true
+  preserve_image_generation_required: true
+  preserve_no_programmatic_art_substitute: true
+  preserve_sketch_preservation: true
+  preserve_design_spec_as_source_of_truth: true
+  preserve_existing_tests_examples: true
+
+runtime_baseline:
+  active:
+    - chat
+    - custom-gpt
+  assessment_pending:
+    - claude
+    - opencode
+    - openai_plugin
+
+next_step:
+  recommended: 2
+  title: Normalisera GPT Byggaren 1.5-kontrakten
+  reason: "Baseline och canonical instruktion är nu låsta utan beteendeförändring."
+
+human_readable_status: "Steg 1 av 7 i GPT Byggaren 1.5.0-migreringen är klart."
