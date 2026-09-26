@@ -28,7 +28,7 @@ def main(version):
 
     kfs=knowledge_files()
     with zipfile.ZipFile(custom) as z:
-        if read(z,"gpt/gpt-instructions.md") != (ROOT/"gpt/gpt-instructions.md").read_bytes():
+        if read(z,"gpt/gpt-instructions.md") != (ROOT/"assistant/instructions.md").read_bytes():
             raise SystemExit("Custom GPT-instruktionen avviker från källan")
         if read(z,"gpt/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
             raise SystemExit("Custom GPT starters avviker")
@@ -37,9 +37,17 @@ def main(version):
                 raise SystemExit(f"Custom Knowledge avviker: {f}")
         if read(z,"VERSION").decode().strip()!=version:
             raise SystemExit("Fel VERSION i custom-paket")
+        custom_instr=read(z,"gpt/gpt-instructions.md").decode("utf-8")
+        for marker in [
+            "Anropa sedan alltid **Image generation**",
+            "Designspecifikationen är sanningskällan",
+            "Analysera eller ändra bara en bild som finns i konversationen.",
+        ]:
+            if marker not in custom_instr:
+                raise SystemExit(f"Custom GPT saknar kritisk beteendemarkör: {marker}")
 
     with zipfile.ZipFile(chat) as z:
-        if read(z,"assistant/instructions.md") != (ROOT/"gpt/gpt-instructions.md").read_bytes():
+        if read(z,"assistant/instructions.md") != (ROOT/"assistant/instructions.md").read_bytes():
             raise SystemExit("Portable instruktion avviker")
         if read(z,"assistant/conversation-starters.md") != (ROOT/"gpt/conversation-starters.md").read_bytes():
             raise SystemExit("Portable starters avviker")
@@ -48,6 +56,14 @@ def main(version):
                 raise SystemExit(f"Portable Knowledge avviker: {f}")
         if read(z,"VERSION").decode().strip()!=version:
             raise SystemExit("Fel VERSION i portable-paket")
+        chat_instr=read(z,"assistant/instructions.md").decode("utf-8")
+        for marker in [
+            "Anropa sedan alltid **Image generation**",
+            "Designspecifikationen är sanningskällan",
+            "Analysera eller ändra bara en bild som finns i konversationen.",
+        ]:
+            if marker not in chat_instr:
+                raise SystemExit(f"Chat saknar kritisk beteendemarkör: {marker}")
         m=json.loads(read(z,"MANIFEST.json"))
         if m["version"]!=version or m["knowledge_count"]!=20:
             raise SystemExit("Fel portable manifestversion/knowledge_count")
