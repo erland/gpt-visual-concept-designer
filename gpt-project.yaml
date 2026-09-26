@@ -25,10 +25,16 @@ runtime:
       max_files: 20
   claude:
     enabled: false
-    compatibility: assessment_pending
+    compatibility: reduced
+    activation: not_active
+    blocker: critical_image_generation_not_guaranteed
+    assessment: docs/claude-opencode-compatibility.md
   opencode:
     enabled: false
-    compatibility: assessment_pending
+    compatibility: reduced
+    activation: not_active
+    blocker: critical_image_generation_not_guaranteed
+    assessment: docs/claude-opencode-compatibility.md
   openai_plugin:
     enabled: false
     compatibility: assessment_pending
