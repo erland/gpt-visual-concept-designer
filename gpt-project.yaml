@@ -18,6 +18,7 @@ runtime:
     enabled: true
     instruction:
       source: assistant/instructions.md
+      packaging_path: gpt/gpt-instructions.md
       max_characters: 8000
     knowledge:
       strategy: exact_manifest
