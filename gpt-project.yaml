@@ -36,7 +36,8 @@ runtime:
       runtime: runtime
     include:
       instructions:
-      - src/instructions/system.md
+      - canonical/core.md
+      - canonical/skills/visual-concept-design/behavior.md
       policies:
       - src/runtime-policy/*.md
       conversation_starters:
@@ -115,14 +116,13 @@ runtime:
       enabled: true
       directory: .opencode/skills
       definitions:
-      - id: gpt-project-workflow
-        name: gpt-project-workflow
-        description: Planera, återuppta och fortsätt ett GPT Byggaren-projekt utifrån
-          faktisk projektstatus.
-        references:
-        - docs/dynamic-planning.md
-        - docs/resume-flow.md
-        - docs/next-step-recommendation.md
+      - id: visual-concept-design
+        name: Visual Concept Design
+        description: Utveckla, illustrera, granska och lås visuella koncept.
+        source: canonical/skills/visual-concept-design/behavior.md
+        references: []
+        assets: []
+        scripts: []
     validation:
       require_agents_md: true
       require_runtime_contract: true
