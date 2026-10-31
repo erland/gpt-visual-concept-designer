@@ -3,10 +3,15 @@ project:
   id: visual-concept-designer
   name: Visual Concept Designer
   profile: guided_creative
+  description: Assistent för visuell konceptutveckling, bildbriefar och iterativ granskning
+    av design.
+  repository: https://github.com/erland/gpt-visual-concept-designer
 instructions:
-  canonical: assistant/instructions.md
+  canonical: canonical/core.md
   legacy_source: gpt/gpt-instructions.md
   preserve_legacy_source_byte_identical: true
+  mode: modular_skills
+  core: canonical/core.md
 knowledge_architecture:
   canonical_root: knowledge
   manifest: knowledge/knowledge-manifest.yaml
@@ -14,8 +19,56 @@ knowledge_architecture:
 runtime:
   chat_zip:
     enabled: true
+    bundle_distribution_engine: false
+    role: peer_distribution
+    allow_richer_runtime_than_custom_gpt: true
+    entrypoint: START-HERE.md
+    schema: schemas/chat-zip-runtime.schema.json
+    policy: src/runtime-policy/chat-zip-runtime-policy.md
+    model: docs/chat-zip-runtime.md
+    start_here_template: templates/START-HERE.chat.md.tpl
+    layout:
+      assistant: assistant
+      knowledge: knowledge
+      schemas: schemas
+      scripts: scripts
+      templates: templates
+      runtime: runtime
+    include:
+      instructions:
+      - canonical/core.md
+      - canonical/skills/visual-concept-design/behavior.md
+      policies:
+      - src/runtime-policy/*.md
+      conversation_starters:
+      - src/conversation-starters/**
+      knowledge:
+      - knowledge/**
+      schemas:
+      - schemas/**
+      scripts:
+      - scripts/**
+      templates:
+      - templates/**
+    exclude:
+    - docs/**
+    - tests/**
+    - evals/**
+    - research/**
+    - .github/**
+    - .git/**
+    - build/**
+    - dist/**
+    - project-status.yaml
+    - PROJECT.md
+    - STATUS.md
+    manifest:
+      required: true
+      checksums: true
+    deterministic_build: true
+    omit_empty_runtime_directories: true
   custom_gpt:
-    enabled: true
+    enabled: false
     instruction:
       source: assistant/instructions.md
       packaging_path: gpt/gpt-instructions.md
@@ -24,13 +77,55 @@ runtime:
       strategy: exact_manifest
       max_files: 20
   claude:
-    enabled: false
+    enabled: true
+    role: peer_distribution
+    mode: claude_project
+    schema: schemas/claude-portable-runtime.schema.json
+    policy: src/runtime-policy/claude-portable-runtime-policy.md
+    model: docs/claude-portable-runtime.md
+    project:
+      instructions: project/instructions.md
+      knowledge: project/knowledge
+      runtime_contract: project/runtime-contract.json
+    templates:
+      readme: templates/README.claude.md.tpl
+    validation:
+      require_instructions: true
+      require_runtime_contract: true
     compatibility: reduced
     activation: not_active
     blocker: critical_image_generation_not_guaranteed
     assessment: docs/claude-opencode-compatibility.md
   opencode:
-    enabled: false
+    enabled: true
+    role: peer_distribution
+    mode: opencode_workspace
+    schema: schemas/opencode-runtime.schema.json
+    policy: src/runtime-policy/opencode-runtime-policy.md
+    model: docs/opencode-runtime.md
+    layout:
+      instructions: AGENTS.md
+      config: opencode.json
+      tools: .opencode/tools
+      runtime_scripts: scripts
+      runtime_contract: .opencode/runtime-contract.json
+      knowledge: knowledge
+    templates:
+      readme: templates/README.opencode.md.tpl
+    skills:
+      enabled: true
+      directory: .opencode/skills
+      definitions:
+      - id: visual-concept-design
+        name: Visual Concept Design
+        description: Utveckla, illustrera, granska och lås visuella koncept.
+        source: canonical/skills/visual-concept-design/behavior.md
+        references: []
+        assets: []
+        scripts: []
+    validation:
+      require_agents_md: true
+      require_runtime_contract: true
     compatibility: reduced
     activation: not_active
     blocker: critical_image_generation_not_guaranteed
@@ -41,18 +136,190 @@ runtime:
     status: assessed_not_active
     advisory_only: true
     blockers:
-      - critical_image_generation_not_guaranteed
-      - persistent_project_state_not_guaranteed
+    - critical_image_generation_not_guaranteed
+    - persistent_project_state_not_guaranteed
     assessment: docs/openai-plugin-compatibility.md
+  plugin:
+    enabled: true
+    role: peer_distribution
+    mode: openai_plugin
+    schema: schemas/plugin-runtime.schema.json
+    policy: src/runtime-policy/plugin-runtime-policy.md
+    model: docs/plugin-runtime.md
+    layout:
+      manifest_file: plugin.json
+      skills: skills
+      references: references
+      assets: assets
+      scripts: scripts
+    templates:
+      readme: templates/README.plugin.md.tpl
+    validation:
+      require_manifest: true
+      require_skill: true
+      require_skill_frontmatter: true
 capabilities:
   critical:
-    - image_generation
-    - image_upload_and_analysis
+  - image_generation
+  - image_upload_and_analysis
   important:
-    - structured_project_files
-    - web_research_optional
-    - code_for_project_bundle_only
+  - structured_project_files
+  - web_research_optional
+  - code_for_project_bundle_only
 release:
   version_file: VERSION
   preserve_current_version: true
   current_version: 1.0.0
+workspace_state:
+  contract_version: 1
+  workspace:
+    requirement: optional
+    persistence: preferred
+    portable: true
+    separate_from_assistant: true
+  state:
+    requirement: optional
+    persistence: preferred
+    authority: conversation
+    conversation_fallback: true
+  runtime_preferences:
+    chat: conversation_or_file
+    agent: runtime_managed
+  schema: schemas/workspace-state-contract.schema.json
+skills:
+  contract_version: 1
+  definitions:
+  - id: visual-concept-design
+    name: Visual Concept Design
+    description: Utveckla, illustrera, granska och lås visuella koncept med spårbar
+      designspecifikation.
+    source: canonical/skills/visual-concept-design/behavior.md
+    references:
+    - knowledge/01-visual-design-foundations.md
+    - knowledge/02-guided-creative-process.md
+    - knowledge/03-character-design-and-roles.md
+    - knowledge/04-costume-clothing-and-armor.md
+    - knowledge/05-creature-and-monster-design.md
+    - knowledge/06-environment-and-world-design.md
+    - knowledge/07-architecture-and-set-design.md
+    - knowledge/08-vehicles-props-and-equipment.md
+    - knowledge/09-historical-periods-overview.md
+    - knowledge/10-material-culture-and-technology.md
+    - knowledge/11-fantasy-design.md
+    - knowledge/12-science-fiction-and-future-design.md
+    - knowledge/13-visual-language.md
+    - knowledge/14-reference-sheet-methods.md
+    - knowledge/15-style-bible-and-consistency.md
+    - knowledge/16-game-and-comics-concept-design.md
+    - knowledge/17-animation-specific-concept-design.md
+    - knowledge/18-pitch-art-and-presentation.md
+    - knowledge/19-sketch-analysis-and-refinement.md
+    - knowledge/20-concept-handoff-format.md
+    - knowledge/ARCHITECTURE.md
+    - knowledge/DOCUMENT-STANDARD.md
+    - knowledge/README.md
+    - knowledge/VALIDATION.md
+    assets: []
+    scripts: []
+  schema: schemas/skill-contract.schema.json
+  mode: explicit
+  resource_policy: explicit
+build_system:
+  model: docs/build-system.md
+  build_script: scripts/build_distributions.py
+  validation_script: scripts/validate_distributions.py
+  targets:
+  - project
+  - chat
+  - claude_project
+  - claude_skills
+  - opencode
+  - plugin
+  runtime_targets:
+    chat:
+      runtime_id: chatgpt_chat
+      runtime_key: chat_zip
+      builder: chat
+      artifact_type: chat_zip
+      filename_pattern: <project-id>-chat-<version>.zip
+    claude_project:
+      runtime_id: claude_project
+      runtime_key: claude
+      builder: claude
+      artifact_type: claude_project_zip
+      filename_pattern: <project-id>-claude-project-<version>.zip
+    claude_skills:
+      runtime_id: claude_skills
+      runtime_key: claude
+      builder: claude_skills
+      artifact_type: claude_skills_zip
+      filename_pattern: <project-id>-claude-skills-<version>.zip
+    opencode:
+      runtime_id: opencode
+      runtime_key: opencode
+      builder: opencode
+      artifact_type: opencode_zip
+      filename_pattern: <project-id>-opencode-<version>.zip
+    plugin:
+      runtime_id: openai_plugin
+      runtime_key: plugin
+      builder: plugin
+      artifact_type: plugin_zip
+      filename_pattern: <project-id>-plugin-<version>.zip
+  output_root: dist
+  working_root: build
+  deterministic_zip: true
+  manifest: true
+  checksums: sha256
+  project_zip_excludes:
+  - build/**
+  - dist/**
+  - .git/**
+  - '**/__pycache__/**'
+  - '**/.pytest_cache/**'
+structure:
+  canonical_root: canonical
+  instructions:
+    path: canonical
+    required: true
+  conversation_starters:
+    path: gpt
+    required: true
+  runtime_policy:
+    path: src/runtime-policy
+    required: false
+  knowledge:
+    path: knowledge
+    required: false
+  templates:
+    path: templates
+    required: false
+  schemas:
+    path: schemas
+    required: false
+  scripts:
+    path: scripts
+    required: false
+  tests:
+    path: tests
+    required: false
+  evals:
+    path: evals
+    required: false
+  research:
+    path: research
+    required: false
+  build:
+    path: build
+    generated: true
+    create_when_needed: true
+  dist:
+    path: dist
+    generated: true
+    create_when_needed: true
+tools:
+  contract_version: 1
+  tools: []
+artifacts:
+  contract_version: 1
+  artifacts: []

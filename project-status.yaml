@@ -1,0 +1,20 @@
+schema_version: 1
+project_id: visual-concept-designer
+migration:
+  engine_version: 1.6.33
+  completed_steps:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  current_step: step-10-image-e2e-test-design
+  state: static_image_workflow_contract_pass_host_e2e_pending
+blocking_issues:
+- Funktionell bildgenerering och bildanalys ej verifierade i värdmiljöerna.
+- GitHub Actions-körning ej verifierad.
+- Generiska modellrobusthets- och blank-idea-gates är inte projektspecifika tester
+  för Visual Concept Designer.
+release_ready: false
+delivery:
+  mode: github

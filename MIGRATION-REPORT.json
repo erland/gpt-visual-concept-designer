@@ -1,0 +1,1367 @@
+{
+  "migration": {
+    "source_class": "L1",
+    "target_contract_version": 1,
+    "status": "ready_with_manual_review"
+  },
+  "decisions": [
+    {
+      "area": "capabilities",
+      "action": "review_unknown",
+      "confidence": "manual_review",
+      "evidence": [
+        "critical",
+        "important"
+      ]
+    },
+    {
+      "area": "artifacts",
+      "action": "no_legacy_artifacts",
+      "confidence": "not_applicable"
+    },
+    {
+      "area": "workspace_state",
+      "action": "derive",
+      "confidence": "auto_with_warning"
+    },
+    {
+      "area": "tools",
+      "action": "inventory_scripts",
+      "confidence": "manual_review",
+      "evidence": [
+        "scripts/build_distributions.py",
+        "scripts/validate_claude_opencode_compatibility.py",
+        "scripts/validate_distributions.py",
+        "scripts/validate_gpt_builder_1_5_contract.py",
+        "scripts/validate_gpt_builder_1_5_migration.py",
+        "scripts/validate_openai_plugin_compatibility.py",
+        "scripts/validate_runtime_distribution_registry.py"
+      ]
+    }
+  ],
+  "warnings": [
+    "Unknown legacy capabilities were not migrated automatically: critical, important",
+    "Workspace/state was inferred without a structured workspace_file authority.",
+    "7 script candidate(s) were found but were not promoted to runtime tools automatically."
+  ],
+  "changes": {
+    "workspace_state": {
+      "contract_version": 1,
+      "workspace": {
+        "requirement": "optional",
+        "persistence": "preferred",
+        "portable": true,
+        "separate_from_assistant": true
+      },
+      "state": {
+        "requirement": "optional",
+        "persistence": "preferred",
+        "authority": "conversation",
+        "conversation_fallback": true
+      },
+      "runtime_preferences": {
+        "chat": "conversation_or_file",
+        "agent": "runtime_managed"
+      }
+    }
+  },
+  "opencode": {
+    "status": "reduced",
+    "reasons": [
+      "Potential runtime scripts require manual tool inventory."
+    ],
+    "can_enable_automatically": false,
+    "required_actions": [
+      "Classify required runtime scripts into an explicit tool contract."
+    ]
+  },
+  "plugin": {
+    "status": "reduced",
+    "reasons": [
+      "Potential runtime scripts require manual tool inventory."
+    ],
+    "can_enable_automatically": false,
+    "required_actions": [
+      "Classify scripts before treating them as Plugin runtime resources."
+    ]
+  },
+  "safe_copy": {
+    "source_type": "directory",
+    "source_unchanged": true,
+    "project_root": ".",
+    "destination": "/mnt/data/migration_vcd/migrated"
+  },
+  "custom_gpt_retirement": {
+    "result": "changed",
+    "previously_enabled": true,
+    "legacy_configuration_preserved": true,
+    "automatic_plugin_conversion": false
+  },
+  "existing_project_assessment": {
+    "status": "review_required",
+    "project_contract_present": true,
+    "issues": [
+      "Legacy runtime.openai_plugin needs explicit mapping to runtime.plugin",
+      "No modern build_system.runtime_targets are declared",
+      "Previously enabled runtimes require independent parity review",
+      "Canonical instructions missing from expected modern source path"
+    ],
+    "dependency_inventory": {
+      "knowledge_files": [
+        "knowledge/01-visual-design-foundations.md",
+        "knowledge/02-guided-creative-process.md",
+        "knowledge/03-character-design-and-roles.md",
+        "knowledge/04-costume-clothing-and-armor.md",
+        "knowledge/05-creature-and-monster-design.md",
+        "knowledge/06-environment-and-world-design.md",
+        "knowledge/07-architecture-and-set-design.md",
+        "knowledge/08-vehicles-props-and-equipment.md",
+        "knowledge/09-historical-periods-overview.md",
+        "knowledge/10-material-culture-and-technology.md",
+        "knowledge/11-fantasy-design.md",
+        "knowledge/12-science-fiction-and-future-design.md",
+        "knowledge/13-visual-language.md",
+        "knowledge/14-reference-sheet-methods.md",
+        "knowledge/15-style-bible-and-consistency.md",
+        "knowledge/16-game-and-comics-concept-design.md",
+        "knowledge/17-animation-specific-concept-design.md",
+        "knowledge/18-pitch-art-and-presentation.md",
+        "knowledge/19-sketch-analysis-and-refinement.md",
+        "knowledge/20-concept-handoff-format.md",
+        "knowledge/ARCHITECTURE.md",
+        "knowledge/DOCUMENT-STANDARD.md",
+        "knowledge/README.md",
+        "knowledge/VALIDATION.md",
+        "knowledge/knowledge-manifest.yaml"
+      ],
+      "candidate_scripts": [
+        "scripts/build_distributions.py",
+        "scripts/validate_claude_opencode_compatibility.py",
+        "scripts/validate_distributions.py",
+        "scripts/validate_gpt_builder_1_5_contract.py",
+        "scripts/validate_gpt_builder_1_5_migration.py",
+        "scripts/validate_openai_plugin_compatibility.py",
+        "scripts/validate_runtime_distribution_registry.py"
+      ],
+      "integration_manifests": [],
+      "tools_verified": false,
+      "knowledge_completeness_verified": false,
+      "review_required": true,
+      "limitations": [
+        "Packaged files do not prove tool availability or permissions.",
+        "A distribution may omit original Knowledge and source dependencies."
+      ]
+    },
+    "ready_for_modern_distribution_build": false,
+    "release_ready": false
+  },
+  "legacy_plugin_plan": {
+    "result": "review_required",
+    "plan": "reconstructed-canonical/plugin-migration-plan.json"
+  },
+  "apply": {
+    "result": "changed"
+  },
+  "engine_migration": {
+    "engine_required": "needs_review",
+    "engine_status": "review_required",
+    "engine_candidates": [
+      "release/validate_project_bundle.py",
+      "scripts/validate_claude_opencode_compatibility.py",
+      "scripts/validate_gpt_builder_1_5_contract.py",
+      "scripts/validate_gpt_builder_1_5_migration.py",
+      "scripts/validate_openai_plugin_compatibility.py",
+      "scripts/validate_runtime_distribution_registry.py",
+      "tests/validate_tests.py"
+    ],
+    "engine_configuration_present": false,
+    "engine_selftest_verified": false,
+    "plugin_repair_status": "legacy_plugin_requires_mapping",
+    "runtime_parity_status": "unverified",
+    "automatic_plugin_repair": false,
+    "automatic_engine_activation": false,
+    "release_ready": false,
+    "required_actions": [
+      "Classify candidate Python scripts as Plugin runtime requirements, tests, or build-only tools.",
+      "If executable Plugin scripts are required, declare engine.resources and a real engine.selftest.",
+      "Rebuild Plugin using the current canonical distribution builder; inspect Skills and resources.",
+      "Validate all five distributions and test the Plugin in its actual host.",
+      "Install/verify the current canonical builder only after reviewing the copied project schema and preserving project-specific files."
+    ]
+  },
+  "canonical_build_upgrade": {
+    "status": "blocked",
+    "stage": "plugin_mapping_review",
+    "reason": "Review legacy Plugin semantics before enabling modern Plugin",
+    "release_ready": false
+  },
+  "generic_discovery": {
+    "schema_version": 1,
+    "status": "analysis_required",
+    "source_files": [
+      {
+        "path": ".github/workflows/build-distributions.yml",
+        "sha256": "ffa1e7bd5317f9cd6ae4be25022a0cb2be841ca3a388fa715411f982c7e9c924",
+        "size": 2617,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "a4f411e518a09ac35f5362158e85ac55085231e2e3151a72cbfe4b324d32145c",
+        "size": 29,
+        "candidate_roles": []
+      },
+      {
+        "path": "INSTALLATION.md",
+        "sha256": "578ebfcf86bf4387355a76b563ef498091c57dae8fb2052cc4ef064792f1c014",
+        "size": 2348,
+        "candidate_roles": []
+      },
+      {
+        "path": "README.md",
+        "sha256": "67ef2106c648c812b8fa2750a09ac892131b5f33ca38fb405ba921c67d1953db",
+        "size": 4646,
+        "candidate_roles": []
+      },
+      {
+        "path": "USAGE.md",
+        "sha256": "6a1049e9b0c45a10ef5772c3d172a1e481841fca5412a1391a4abea5a5ce4dde",
+        "size": 3157,
+        "candidate_roles": []
+      },
+      {
+        "path": "VERSION",
+        "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+        "size": 6,
+        "candidate_roles": []
+      },
+      {
+        "path": "assistant/instructions.md",
+        "sha256": "b531c369f82ecc702353bfdb78dc11a4d69fa1d293dc5d0391adcb9bea361c70",
+        "size": 8256,
+        "candidate_roles": [
+          "instruction_candidate"
+        ]
+      },
+      {
+        "path": "docs/claude-opencode-compatibility.md",
+        "sha256": "1c0314318121e2581f58fce50a9180e354324f4c7fcee67aa42797da182ac4fa",
+        "size": 2784,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/gpt-builder-1.5-runtime-migration.md",
+        "sha256": "529ccbe2a7ba4de47b1d9766252ffb83348b3924bf7334d28227336e17bab0d8",
+        "size": 2976,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/openai-plugin-compatibility.md",
+        "sha256": "02ccca881b688452b8d3b2b133682b8a9cf810692b6a0b0d74e726037d35f442",
+        "size": 2776,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "examples/README.md",
+        "sha256": "8318ca1bd1ca88b73e6b38fe61b4ea3fe6805b5680d074acf9220a9cbadcb4a1",
+        "size": 542,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/environment-world/README.md",
+        "sha256": "5da2d0de63c84de675cc212413e7bc6a1f407ec43a614cc5ea54f2c427a59012",
+        "size": 1290,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/environment-world/handoff.md",
+        "sha256": "d447096d0733a309629ca004cf0d9b90cbc321a9108229671d22cd0099626aa0",
+        "size": 499,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/environment-world/style-bible.md",
+        "sha256": "1012c2ee78af0493c9fcc108a33c989a3b787c5e35091130169957c6dc854bbc",
+        "size": 963,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/environment-world/world-logic.md",
+        "sha256": "f9f6d4739478ff1d35ecaec8893770a664c31f62391935770305415a12d1ac9d",
+        "size": 758,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/guided-character/README.md",
+        "sha256": "6b64d897d152bc1f91b428c2dbbe917168559ce3912d6b896107baccc686d909",
+        "size": 2034,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/guided-character/concept-spec.yaml",
+        "sha256": "542edc176bff5b00f3dc76ad740b48c8499fb033587f70e2bf019afbc2a18c2a",
+        "size": 946,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "examples/guided-character/handoff.md",
+        "sha256": "5da982369c5ebad807ebd0005759024ad15ce49aae36e43ef7b00463cda4f079",
+        "size": 579,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/locked-character/concept-spec.yaml",
+        "sha256": "6afe6ef19f2b5370db13166471034ac9045c1a827573bcb2e4eb85db718d51b4",
+        "size": 1520,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "examples/locked-environment/concept-spec.yaml",
+        "sha256": "1fa20ea5a10b81a05a4d36c88415de3b2b6f2fb3fc01eccdcbb4f7dd6087b8e6",
+        "size": 856,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "examples/locked-vehicle/concept-spec.yaml",
+        "sha256": "172353ee2517d9b370c90a96f071107b3b87b2a4375b8a056a11589c3fc4e8f4",
+        "size": 831,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "examples/sketch-vehicle/README.md",
+        "sha256": "d1a97b3181df48985e7b7a010d8c42301eebc09e0fde1baa05670b3c2cdee65e",
+        "size": 1269,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/sketch-vehicle/concept-spec.yaml",
+        "sha256": "9e1be10cf71958a207b54e049ab28fcb98b126494c489ce9287a92db90d18dd5",
+        "size": 839,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "examples/sketch-vehicle/handoff.md",
+        "sha256": "d0113161af2ffb743d803cf036e5a5200f58ca05d0a0459dfd1eb7c99a7e5f22",
+        "size": 345,
+        "candidate_roles": []
+      },
+      {
+        "path": "examples/sketch-vehicle/preservation-plan.md",
+        "sha256": "2a1caeb095c13332c7e265be59574d191395223a48d8aab718ebafadd4f65687",
+        "size": 513,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt/capabilities-and-settings.md",
+        "sha256": "a6bf5b0611cec6f65e8760a0d68bb78d05a4ce384877230dcb3dd0b5b77343a5",
+        "size": 2656,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt/conversation-starters.md",
+        "sha256": "a94b68807323a5304651b0a8f889c019791d1b502bfc16f0cf48e1c4fa246e6f",
+        "size": 1049,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt/gpt-instructions.md",
+        "sha256": "b531c369f82ecc702353bfdb78dc11a4d69fa1d293dc5d0391adcb9bea361c70",
+        "size": 8256,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt/gpt-name-and-description.md",
+        "sha256": "bdb4f02c3b1803ea263281b56f691b265811cb802714740470d25999c178f98b",
+        "size": 958,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt/welcome-message.md",
+        "sha256": "6733860c6de2233137051d331ec1821c469305572fb363be2ffb174a590161fe",
+        "size": 472,
+        "candidate_roles": []
+      },
+      {
+        "path": "gpt-builder-1.5-contract.yaml",
+        "sha256": "50bd93ccf2ddb44adae8353d1ea49a7a99a25abddeb34548d3f4f7f6729276b9",
+        "size": 3776,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "gpt-project.yaml",
+        "sha256": "45009dbaa53dd5e7d3ce0e0983f42ac7c93400f4c0d33f0c703bd158080e6ccd",
+        "size": 1990,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/01-visual-design-foundations.md",
+        "sha256": "a62cc92f5483f6dfdbf4a88753b3d1e74678123aaa3b34055ba83c325fae4331",
+        "size": 4248,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/02-guided-creative-process.md",
+        "sha256": "c50b1b4802edf76061f9250b6ab2dc4d06019ac6c96d3f20d5c877b2d2ba55d4",
+        "size": 3925,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/03-character-design-and-roles.md",
+        "sha256": "eab8511e20833722edc22b1741b5bc0e58c63e3791204e8069c7f68ca3ec1938",
+        "size": 6482,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/04-costume-clothing-and-armor.md",
+        "sha256": "a9e735660adf9ff2f511aba2e120f19644040db3c5204bf0abb4bed008a6063c",
+        "size": 2964,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/05-creature-and-monster-design.md",
+        "sha256": "9e6c4182f044946bd731fc083b2472d4d84d9cc214dd771015dfb73a174ff07a",
+        "size": 2662,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/06-environment-and-world-design.md",
+        "sha256": "ad7967c9a8720f5dffc7494c21b73e34592c675312c22a6fdf95fec4d9a50572",
+        "size": 8821,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/07-architecture-and-set-design.md",
+        "sha256": "72edbe1874381dca9de9bee7704a4e233e6bc561c2a12f72cd3079308ca7aaf6",
+        "size": 8304,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/08-vehicles-props-and-equipment.md",
+        "sha256": "b2e376a950625fdf0474a6e003533570fbd7ce1d90310f07e74e085dad730a36",
+        "size": 5569,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/09-historical-periods-overview.md",
+        "sha256": "7e28f20d7e7bd4b65a3fe06333ec4ae27dbee154807618dad0285bc446d105a5",
+        "size": 9449,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/10-material-culture-and-technology.md",
+        "sha256": "10195250d30b018bbca62c7dc03d7e70f2c3bc3265e5e9b22c008d7c6b618e45",
+        "size": 8617,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/11-fantasy-design.md",
+        "sha256": "d5348b3e5146f7f1e59d9cf9234b5bd52f8cbdfc3b761a3627f57bc1747f9931",
+        "size": 7102,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/12-science-fiction-and-future-design.md",
+        "sha256": "8b89d837b177c0e442e5aa67744c3ac15c002bca1d1bcd0d0f86a3be728d740a",
+        "size": 7547,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/13-visual-language.md",
+        "sha256": "87ae527dd37f584a7f2e0f12c9427def1233dbb8118b08010cf8852d5c4944bd",
+        "size": 7248,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/14-reference-sheet-methods.md",
+        "sha256": "c04089443f9de199b27a87c08c339b70730ba6cb0732558e1c72bc2a569bddd8",
+        "size": 3273,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/15-style-bible-and-consistency.md",
+        "sha256": "0a12aabce1325e6b1e6f5782cfa27f58e8b84878880e8d4fa8dd0239ff900abf",
+        "size": 6854,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/16-game-and-comics-concept-design.md",
+        "sha256": "587ddc26e1f977763bb999173190206dd61f00ea9df5aade3d385afd507d0f44",
+        "size": 4697,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/17-animation-specific-concept-design.md",
+        "sha256": "f379b348efc12c76f4f5c8e20dcf493b28ac4643cf30b4cbfc1e6bc811b85289",
+        "size": 2209,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/18-pitch-art-and-presentation.md",
+        "sha256": "80ffc0d7b952f920ff4b874f5e72afa06e244e86884a71d24f26d5853e60f42b",
+        "size": 2181,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/19-sketch-analysis-and-refinement.md",
+        "sha256": "b109cf70eed85d9cd0c6cb860e2c63716cde5894e3347ab0ccdb601b9da7034d",
+        "size": 5970,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/20-concept-handoff-format.md",
+        "sha256": "0d3b126865d07496b4ab8cf229409b0d43180c1e88c1b5dc89915f7c374d3ef5",
+        "size": 6844,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/ARCHITECTURE.md",
+        "sha256": "590a26c620087759fd9d02c8554a69538461c67defe48866e584575f111de622",
+        "size": 1694,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/DOCUMENT-STANDARD.md",
+        "sha256": "e86027d11af558f6e3376da1c0f4788dae401e8cb17b0db3cb05ad9232c502d8",
+        "size": 1850,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/README.md",
+        "sha256": "b15a0ccb2251a8834497ca60047710519b23dc13668a548b99351eccd3a350f3",
+        "size": 2021,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/VALIDATION.md",
+        "sha256": "d17a89802dec005cb3605e3c1fb86e8e981beaa8d8a4450bcdd00c8376067642",
+        "size": 127,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/knowledge-manifest.yaml",
+        "sha256": "b5afa39891a31cf6e0c6a695f588917cef6b4725a2287e48ac80bcbb8e7c5981",
+        "size": 4005,
+        "candidate_roles": [
+          "knowledge_candidate",
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "migration-status-1.5.yaml",
+        "sha256": "989e119110a5a206e8fca2ec23e47d096a45443c11ea1f15384662549c4d8be7",
+        "size": 4294,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "models/deliverable-types.md",
+        "sha256": "b06ee4ce83b6b594c0f5de373e1af8e71763467fae7a882fd768ce70b8b10a0f",
+        "size": 4625,
+        "candidate_roles": []
+      },
+      {
+        "path": "models/subject-deliverable-matrix.md",
+        "sha256": "ae2ba7a6f920d43cd2e645a27b19d852a0174e5f6e6392894d93e7b54ecbedf2",
+        "size": 3149,
+        "candidate_roles": []
+      },
+      {
+        "path": "models/subject-models.md",
+        "sha256": "051e9d3e2821c795a1ebbcdfd1c64e2620bbacfcbf34810e9707dddcd766ffce",
+        "size": 10310,
+        "candidate_roles": []
+      },
+      {
+        "path": "portable/START-HERE.md",
+        "sha256": "62a09100ef2ac13b9d1aced9223ce0793c180c24b5f72ad595ebc3a945b6922b",
+        "size": 974,
+        "candidate_roles": []
+      },
+      {
+        "path": "product/definition-of-done.md",
+        "sha256": "084ed4513f26dbc4a21638c9e2357fc0f57581830d24c7a5979803c451301be0",
+        "size": 2079,
+        "candidate_roles": []
+      },
+      {
+        "path": "product/design-principles.md",
+        "sha256": "11877b609d5b7078150b910e7419e564701b9463eb8f01935c7b386ec876cf7f",
+        "size": 4502,
+        "candidate_roles": []
+      },
+      {
+        "path": "product/product-definition.md",
+        "sha256": "c1d02128e8ab839c9db2f03524c5ed1663355b99e777fca77add8655169185e8",
+        "size": 4539,
+        "candidate_roles": []
+      },
+      {
+        "path": "product/scope-and-boundaries.md",
+        "sha256": "3312748a5943578e6e7f788724ee8c25c725740c07a7ba9c745292a75565c9d0",
+        "size": 4140,
+        "candidate_roles": []
+      },
+      {
+        "path": "reconstructed-canonical/plugin-migration-plan.json",
+        "sha256": "f9bdf94dd9d4801d5bd7e0dfcfcd6fcfc7138c39ca32403af372bc826e7f60ed",
+        "size": 1162,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "release/validate_project_bundle.py",
+        "sha256": "46d86ae16e9f853630f6e12ec836699d5523499f0cad1bae1e3822732a411832",
+        "size": 1117,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "runtime-distribution-registry.yaml",
+        "sha256": "d30c384aa343442a1ee739269df41d47de972bcba10c1628f26c810f6030d4c9",
+        "size": 1586,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/concept-spec.schema.yaml",
+        "sha256": "d2edcb7d7a513e0fbaa8df684466d7a0cd5d7a389bf76c754a5ca62fc4a675a4",
+        "size": 903,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/image-manifest.schema.yaml",
+        "sha256": "d3926024b8027abe0d6d8e8ba7e4e0a0911610c9044ba7b6f47f6c482bad6cd4",
+        "size": 1223,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/project-manifest.schema.yaml",
+        "sha256": "741f260f8ad5befe802f1c5d1c96b1c0d83efc1b9e8128e80b67f6a02a697ed6",
+        "size": 2419,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "scripts/build_distributions.py",
+        "sha256": "adfd8a29d9cee6be910ead970da5f496845f7d9e280be530bbb2f211b4bacde8",
+        "size": 5179,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_claude_opencode_compatibility.py",
+        "sha256": "a33bc11b60fe440f72b4282c03fe2372c06d52bfb6508da23c8bc5383d5fcb65",
+        "size": 1785,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_distributions.py",
+        "sha256": "f27210d747f84568c3d6c2823c2c34d3b153ae1d3049f6bf626b1639db6bb009",
+        "size": 4313,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_gpt_builder_1_5_contract.py",
+        "sha256": "e557ce3cc832d7620918ae79cdd5166ccc7ab3f5c1a34d158912467880242db1",
+        "size": 4228,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_gpt_builder_1_5_migration.py",
+        "sha256": "56222408b08b9babafd2ccff0379a3bd17f0398804d601aea9b84f7bd52e6da5",
+        "size": 2789,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_openai_plugin_compatibility.py",
+        "sha256": "8818a47e4f24bd611e2eba9ad2059176fcbc3e5c10d7e80ea81f0572052b913c",
+        "size": 2068,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_runtime_distribution_registry.py",
+        "sha256": "edf3be012a3cfd0e5083f2c4398b5b0106a46c8f8969e3215abbe69fdc32f6ec",
+        "size": 1392,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "templates/architecture-brief.md",
+        "sha256": "3d5f4a64529a148e6c240215a2d03fe784c8e659e2d13c86e8c59ff2ffef7d82",
+        "size": 1783,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/character-brief.md",
+        "sha256": "f49f04929edfe8265608b0b9e8c45f9025d6162b4bbc2135bfb532bb8d18b119",
+        "size": 637,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/concept-brief.md",
+        "sha256": "ad4a41004eb6184e8d6fd17ab45ad732191fe45813721959de790d8951a77823",
+        "size": 709,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/concept-handoff.md",
+        "sha256": "5705fe10ab9e87f857af35a0bcfc8896129d1803c910c388c2a2b8f8a58e5a0f",
+        "size": 587,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/concepts-manifest.yaml",
+        "sha256": "3cc8dd710639a05778b53e262c74ea24e28f7bec03813f4310505a88dab67a60",
+        "size": 263,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "templates/consistency-checklist.md",
+        "sha256": "0713a8d094720fc3f7fe4ec5ccd098e143ee083729b7051f44f4201a69543a87",
+        "size": 921,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/creature-brief.md",
+        "sha256": "4e13e1f36a72997801c646a2c083c76e65e7c782c68c9dd7471e7ec52e6549d6",
+        "size": 511,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/cultural-influences-guidelines.md",
+        "sha256": "c1461c3eaa8e1f7f288e60df4497b3c24bd3c2c98b8df69ea15471585fe54cd3",
+        "size": 1752,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/decision-log.md",
+        "sha256": "7421abe8538d0f60a1cf75fc02544d3416bf063d5a36b0e58d3647b90dc2a257",
+        "size": 375,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/environment-brief.md",
+        "sha256": "1a9d672102160a0f9fbfe54d521ffdf46bff415055096f7011bedf5196d2c7dc",
+        "size": 1778,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/fantasy-logic-checklist.md",
+        "sha256": "dce6d94d5e193c939b059323f5d6dd009ecd39c31c8538639c4a516bb8982471",
+        "size": 882,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/fantasy-scifi-genre-matrix.md",
+        "sha256": "309fb6cde4e0f1fce4f2769ffd1bf9a03e215dcd21f3e7a65b90e054327247bd",
+        "size": 1797,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/future-technology-logic-checklist.md",
+        "sha256": "2ed68433b9fae1dd3d6d9d468ac4fcd7adc7c9beb798eafab90b41e1585f24ed",
+        "size": 879,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/historical-consistency-checklist.md",
+        "sha256": "072d35af0e678217d9ac23db459c742c33e4ce57e9efa9bf5269486d99047d04",
+        "size": 1275,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/historical-period-matrix.md",
+        "sha256": "99f0241a3f46ef11953ec463970a535a67afebfba2d7d970d98ec80d28aafe6a",
+        "size": 2582,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/image-generation-brief.yaml",
+        "sha256": "7c958e4cdf017ef16e63132ce07ae3b616666ffad14b41503c672b93ccef562c",
+        "size": 1006,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "templates/images-manifest.yaml",
+        "sha256": "75dce332c668178e916c31c0f2df125282b1efe457d722b5d7f661b26973acc6",
+        "size": 484,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "templates/project-manifest.yaml",
+        "sha256": "6df60e497f2a5aea871519263a57313f3e3c1a81332a37ec4cda0f30e6725401",
+        "size": 796,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "templates/project-readme.md",
+        "sha256": "16ad57916592b9451d02725a0b9641cea17f0734721873e17307a583ce6cac46",
+        "size": 479,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/prop-brief.md",
+        "sha256": "5260f92db8393fdd014204c724df2ebfc406a4135d5db2b41749161d350f6de2",
+        "size": 504,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/reference-sheet-brief.md",
+        "sha256": "776e5b843649a6f56f232050afd85abf221744ea329e00cb4cd93737935aa768",
+        "size": 683,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/sketch-analysis.md",
+        "sha256": "1e7185c6915ab39621b1f5525d64981323f457a39c848f251b9135bd6fb55f74",
+        "size": 510,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/style-bible.md",
+        "sha256": "765243c6d23786be50341a3bc688a5c8698a7bd5aed7bd3b32e364b0b5286a05",
+        "size": 716,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/vehicle-brief.md",
+        "sha256": "160c701c5432e82cc13da95aa92e12e9a475533955c3b2bc718d1dee3c7e21a5",
+        "size": 559,
+        "candidate_roles": []
+      },
+      {
+        "path": "templates/world-logic-checklist.md",
+        "sha256": "ebb462bd07c43686da4f15fbe09b84e13ee67403b608c61f697ba6d7d8a6d9ea",
+        "size": 1805,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/README.md",
+        "sha256": "d52b24e480d69ba490a495eaa8bc069a22309539541bfa6f35e94ab73669b643",
+        "size": 1188,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/assessment-rubric.md",
+        "sha256": "aeffd174e06b5f305ff877605443dc08503e0de4030f1b9b8224d0b9e88016d8",
+        "size": 2210,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T01-vague-character-beginner.md",
+        "sha256": "91791c91e4805b67e6f10fbc75efd428a074fe7bdc9db7ddaa17865ad990764b",
+        "size": 722,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T02-i-dont-know-guidance.md",
+        "sha256": "1fb6d264c24f76296cd7e22ec5783901669235f8014cb11f68d3924708c049d0",
+        "size": 576,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T03-expert-fast-track.md",
+        "sha256": "8bbee835d8ef16e31b1e9df3562cbe1e7384f1484f4ad4f066240e917be0cf91",
+        "size": 508,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T04-mysterious-city.md",
+        "sha256": "520cc6a1de96e427ee02e7a9a77a96c270a3c48cddfd9615013bc14f31ed9a07",
+        "size": 492,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T05-functional-building.md",
+        "sha256": "120203e920cd945ba439e16a2713f87ab79b4aa1dc024ce4d50f9c620c6874ab",
+        "size": 406,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T06-alien-desert-vehicle.md",
+        "sha256": "70aee1af2484db38424e4f1c61bcd083224e58f9af2aed7bb9986a8caa4ddf36",
+        "size": 442,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T07-fictional-prop-weapon.md",
+        "sha256": "ea91bc0622d3e6565d3c91f5b1485860c32e119a5c1c6edd40595521b5b82c71",
+        "size": 479,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T08-swamp-creature.md",
+        "sha256": "21857eaeaa4487443cd163939d8f82fbecad971d7b382794c376057de45bc480",
+        "size": 433,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T09-historical-anchoring.md",
+        "sha256": "e1dc7da39f5cffabc302ab7411fdbdd8d075996a6f9423ac2a987ac884003eaa",
+        "size": 441,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T10-magic-system-consequences.md",
+        "sha256": "34518ac8b39342c8794205881b9348b0b83a4a8287ee970707b85e8d7b7c5ba7",
+        "size": 464,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T11-future-technology-lifecycle.md",
+        "sha256": "96c0b113bc92b380eba9e4521d9108281c2139e7c3126007b1aba45cde6b2ae6",
+        "size": 408,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T12-sketch-preservation.md",
+        "sha256": "aa47a51b76199f467b42c12bd536fbbe06854912a6f1c875561582b1a4586a5b",
+        "size": 610,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T13-rough-before-refined.md",
+        "sha256": "90927b7b0e201e703966c6960676ca503f408a1784b8efc404fc5d275f0873a3",
+        "size": 603,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T14-hero-art-from-locked-design.md",
+        "sha256": "3d01cd45bc9daf54420fd019a6b3f820c648b482e1558ba72d6146196caf8bf8",
+        "size": 429,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T15-animation-reference-sheet.md",
+        "sha256": "220b270901be7bcbe365025b80db7723e1840fe476c358ebdc20fbf11ad3aa40",
+        "size": 445,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T16-ten-years-later-consistency.md",
+        "sha256": "11c8a20602c365c606c691a5d82ee78028e1cca8647cc60bdd157d319edad4d5",
+        "size": 440,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T17-game-to-comics-adaptation.md",
+        "sha256": "37b3ea49372394b1d2f6c6534bc47e1388a9916cb20bd1889fd9320524727fa0",
+        "size": 470,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T18-production-handoff.md",
+        "sha256": "190e2d41fc7ddb9ee60d992e30a80dff2851e997ff43b3ac722aef4f7c0f46ac",
+        "size": 567,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T19-project-bundle-create.md",
+        "sha256": "930361dde35715a8b8bd5a0abdd1a6e303dcefca05e3cb1a4f07db67e531b3b3",
+        "size": 329,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T20-project-bundle-import.md",
+        "sha256": "1f87b91134a72cdbbe6e25c5be4d443d139d3b735da0cc6560d574c8c01e224b",
+        "size": 345,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T21-image-authority.md",
+        "sha256": "45878c993b529d923932883a609ba61758d9a8a7c5f761cbe6cfa985a84e9297",
+        "size": 314,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T22-missing-image.md",
+        "sha256": "0475f09a0b56c48eb67b1e4bdf15612efd6e07764290b97460d4aee731949a95",
+        "size": 280,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T23-internal-prompt-direct-generation.md",
+        "sha256": "6ba032f3ab22846c941c12e5952eca9399b83d3b988151eab274213ae6d06fa9",
+        "size": 542,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T24-explicit-prompt-export.md",
+        "sha256": "b37dbec2ede642cacc9d0736be487eb7011414ed983c98906fd17f19df9951b3",
+        "size": 420,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T25-specification-over-old-prompt.md",
+        "sha256": "558ad585e1c87ea3305f0b4b1c420376ff8f96f1464eb1ad946fa6469148c1c9",
+        "size": 535,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T26-no-svg-substitute.md",
+        "sha256": "8ee3e9ca833b1e27beb5b6f6f27f149c270697417a1b5df4091b8ca72e4a8eff",
+        "size": 420,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T27-image-tool-unavailable.md",
+        "sha256": "6131210ebc9e90564e03b0cd29ac19ab532b734ed026c00830475915501566d2",
+        "size": 358,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T28-prompt-compiler-compression.md",
+        "sha256": "91c1027116c64975046d32072fcff852de00cb7362680fad82930dc1b26cbf7d",
+        "size": 643,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T29-image-generation-single-retry.md",
+        "sha256": "58e5d2a09e96c21d19bc12443d98dc7c3724fee603d08087cb19bf79ad5708b8",
+        "size": 523,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/cases/T30-retry-failure-reporting.md",
+        "sha256": "b2518a719365f89150158a323f44c50eda6f53c1c63cd53a61fea65859617dd1",
+        "size": 452,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/pass-fail-criteria.md",
+        "sha256": "ff34b104d39d272ecebdee7cde3c3337aff77f1500dd260388961e032b53bda7",
+        "size": 1161,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/test-manifest.yaml",
+        "sha256": "039678e99c40debf87140236d8ba54f4225616e391023f2fe070b82396344f51",
+        "size": 4826,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "tests/test-run-template.md",
+        "sha256": "468651cb86a444468945146ffc62fac2e03fe248c7595c1291bd32ac052c88de",
+        "size": 704,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/validate_tests.py",
+        "sha256": "d9bc8fb11a118d4faa2a8480bbe550cabd90d8fe528bbd0706272c28a65b1622",
+        "size": 856,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "workflow/image-generation-policy.md",
+        "sha256": "0dbda2a406a19a0879401bbeebf0371d9b98b2da2389e1a23bfa51234d645e4a",
+        "size": 5189,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/interaction-modes.md",
+        "sha256": "9c90372a4703df97c1d822dc0331d5297c2ef27f8cc17226d7b5918bee8319a3",
+        "size": 7965,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/internal-prompt-engine.md",
+        "sha256": "8654fed0deec2b6bb87216a09c99eb0722e042bb19d360fcaeab5bc0507b6e0f",
+        "size": 2040,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/mode-selection-rules.md",
+        "sha256": "a5208f964fe836e344d738126f0123fd752130ebfcdd656d9643027de5a2a3ad",
+        "size": 4638,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/next-step-guidance.md",
+        "sha256": "1673755e335c5c6796821b823cd77002946f23bee03e406d8ef9fc02b8d68b1c",
+        "size": 4024,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/project-bundle-workflow.md",
+        "sha256": "a7839e9b4246b083524e4e66b3c67ae21a64cb9508bbb3b239a3e02dc61145ec",
+        "size": 5239,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/project-manifest-guide.md",
+        "sha256": "5ea48c586db0b42e5bf8c41731ab4b4454c2c142e0efdfb1a9937e9e60a7577c",
+        "size": 940,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/prompt-compiler.md",
+        "sha256": "1d6a78044ea9e9d84499d23b85f13bce41f58e96b510975c11859cd3bc85b1c1",
+        "size": 2078,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/sketch-lock-handoff-workflow.md",
+        "sha256": "514bb77b17757db0fe019045782e3f72e60ad8ef3bb4b064fc2735e185539823",
+        "size": 2147,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/visual-maturity-pipeline.md",
+        "sha256": "1f261533050ef19dc2bae8069ab5d4cc930da215887ae95359f12650633f6215",
+        "size": 1563,
+        "candidate_roles": []
+      },
+      {
+        "path": "workflow/workflow.md",
+        "sha256": "96a0520838e48bf1a56fbeda1d3f803fe4146508e94268ff2c6b02e0e7c44c02",
+        "size": 8051,
+        "candidate_roles": []
+      }
+    ],
+    "candidates": {
+      "instruction_candidate": [
+        "assistant/instructions.md"
+      ],
+      "knowledge_candidate": [
+        "docs/claude-opencode-compatibility.md",
+        "docs/gpt-builder-1.5-runtime-migration.md",
+        "docs/openai-plugin-compatibility.md",
+        "knowledge/01-visual-design-foundations.md",
+        "knowledge/02-guided-creative-process.md",
+        "knowledge/03-character-design-and-roles.md",
+        "knowledge/04-costume-clothing-and-armor.md",
+        "knowledge/05-creature-and-monster-design.md",
+        "knowledge/06-environment-and-world-design.md",
+        "knowledge/07-architecture-and-set-design.md",
+        "knowledge/08-vehicles-props-and-equipment.md",
+        "knowledge/09-historical-periods-overview.md",
+        "knowledge/10-material-culture-and-technology.md",
+        "knowledge/11-fantasy-design.md",
+        "knowledge/12-science-fiction-and-future-design.md",
+        "knowledge/13-visual-language.md",
+        "knowledge/14-reference-sheet-methods.md",
+        "knowledge/15-style-bible-and-consistency.md",
+        "knowledge/16-game-and-comics-concept-design.md",
+        "knowledge/17-animation-specific-concept-design.md",
+        "knowledge/18-pitch-art-and-presentation.md",
+        "knowledge/19-sketch-analysis-and-refinement.md",
+        "knowledge/20-concept-handoff-format.md",
+        "knowledge/ARCHITECTURE.md",
+        "knowledge/DOCUMENT-STANDARD.md",
+        "knowledge/README.md",
+        "knowledge/VALIDATION.md",
+        "knowledge/knowledge-manifest.yaml"
+      ],
+      "script_candidate": [
+        "release/validate_project_bundle.py",
+        "scripts/build_distributions.py",
+        "scripts/validate_claude_opencode_compatibility.py",
+        "scripts/validate_distributions.py",
+        "scripts/validate_gpt_builder_1_5_contract.py",
+        "scripts/validate_gpt_builder_1_5_migration.py",
+        "scripts/validate_openai_plugin_compatibility.py",
+        "scripts/validate_runtime_distribution_registry.py",
+        "tests/validate_tests.py"
+      ],
+      "configuration_candidate": [
+        ".github/workflows/build-distributions.yml",
+        "examples/guided-character/concept-spec.yaml",
+        "examples/locked-character/concept-spec.yaml",
+        "examples/locked-environment/concept-spec.yaml",
+        "examples/locked-vehicle/concept-spec.yaml",
+        "examples/sketch-vehicle/concept-spec.yaml",
+        "gpt-builder-1.5-contract.yaml",
+        "gpt-project.yaml",
+        "knowledge/knowledge-manifest.yaml",
+        "migration-status-1.5.yaml",
+        "reconstructed-canonical/plugin-migration-plan.json",
+        "runtime-distribution-registry.yaml",
+        "schemas/concept-spec.schema.yaml",
+        "schemas/image-manifest.schema.yaml",
+        "schemas/project-manifest.schema.yaml",
+        "templates/concepts-manifest.yaml",
+        "templates/image-generation-brief.yaml",
+        "templates/images-manifest.yaml",
+        "templates/project-manifest.yaml",
+        "tests/test-manifest.yaml"
+      ]
+    },
+    "analysis_contract": {
+      "purpose": "Classify project behavior, knowledge, dependencies and workflows based on evidence",
+      "evidence_rule": "Every proposed fact must cite a source_files.path and SHA-256",
+      "uncertainty_rule": "Mark unresolved source ambiguity for review; do not invent behavior",
+      "output": "platform-neutral reviewed project model before runtime configuration"
+    },
+    "release_ready": false,
+    "runtime_activated": false
+  },
+  "project_hygiene": {
+    "status": "review_required",
+    "missing_documents": [
+      "PROJECT.md",
+      "STATUS.md",
+      "docs/development-plan.md"
+    ],
+    "possible_stale_versions": [
+      {
+        "file": "README.md",
+        "mentioned_versions": [
+          "1.5.0"
+        ]
+      }
+    ],
+    "ci_references_to_reconcile": [],
+    "legacy_validator_candidates": [],
+    "broken_document_links": [],
+    "open_development_checklist_items": [],
+    "open_migration_checklists": [],
+    "unresolved_status_claims": [],
+    "files_deleted": [],
+    "documentation_modified": false,
+    "required_actions": [
+      "Update README, PROJECT, STATUS, development plan and migration checklist together.",
+      "Compare legacy validator behavior with canonical checks before deleting any file.",
+      "Reconcile CI identifiers and actual validation evidence; do not claim host parity from ZIP builds.",
+      "Verify no documentation points at removed paths before release."
+    ]
+  },
+  "migration_steps": [
+    {
+      "id": "inventory",
+      "title": "Inventera källprojekt",
+      "status": "completed"
+    },
+    {
+      "id": "model",
+      "title": "Granska projektmodell och runtime-mappning",
+      "status": "completed"
+    },
+    {
+      "id": "engine",
+      "title": "Bedöm och installera kanonisk byggmotor",
+      "status": "pending_or_blocked"
+    },
+    {
+      "id": "distributions",
+      "title": "Bygg och kontrollera fem distributioner",
+      "status": "pending_or_blocked"
+    },
+    {
+      "id": "hygiene",
+      "title": "Uppdatera dokumentation och granska äldre filer",
+      "status": "review_required"
+    },
+    {
+      "id": "release",
+      "title": "Slutverifiera runtime och release",
+      "status": "pending"
+    }
+  ],
+  "next_step": {
+    "id": "engine",
+    "title": "Bedöm och installera kanonisk byggmotor"
+  }
+}

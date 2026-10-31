@@ -50,6 +50,6 @@ Aktivera Data Analysis/Code Interpreter för att GPT:n ska kunna importera, vali
 
 Aktivera både **Image generation** och **Code Interpreter & Data Analysis**. Prompt Compiler ser till att Code Interpreter endast används för projektfiler och zip-paket, medan konstnärliga bilder alltid går till Image generation.
 
-## Canonical källa efter GPT Byggaren 1.5.0-migreringen
+## Aktuell migrerad källa (GPT Byggaren 1.6.33)
 
-Repositoryts canonical instruktion är `assistant/instructions.md`. Custom GPT-paketet exponerar fortfarande `gpt/gpt-instructions.md` av kompatibilitetsskäl, men innehållet byggs från canonical-källan. Ladda Knowledge enligt `knowledge/knowledge-manifest.yaml` (20 filer).
+Aktiv instruktion härleds från `canonical/core.md` och `canonical/skills/visual-concept-design/behavior.md`. Tidigare manuell Custom GPT-installation och instruktionen `gpt/gpt-instructions.md` är historiska. För nya distributioner, använd instruktionerna i respektive byggt paket. Värdens bildfunktioner måste verifieras separat.
