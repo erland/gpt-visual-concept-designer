@@ -1,3 +1,5 @@
+> **Historisk kompatibilitetsbedömning (GPT Byggaren 1.5.0).** Dokumentet beskriver tidigare migrationsbeslut, inte aktuell aktivering i 1.6.33. Nuvarande konfiguration finns i `gpt-project.yaml`; fem distributioner kan byggas men funktionell bildkapacitet och runtimeparitet är fortfarande overifierade.
+
 # OpenAI Plugin – compatibility assessment
 
 Projekt: **Visual Concept Designer**  
