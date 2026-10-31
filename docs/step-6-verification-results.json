@@ -1,0 +1,62 @@
+{
+  "project": "Visual Concept Designer",
+  "engine": "1.6.33",
+  "date": "2026-10-31",
+  "release_ready": false,
+  "checks": {
+    "engine_selftest": {
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"stages\": [\n    {\n      \"stage\": \"source\",\n      \"ok\": true,\n      \"detail\": \"62 source files discovered\"\n    },\n    {\n      \"stage\": \"materialize\",\n      \"ok\": true,\n      \"detail\": \"62 files copied to isolated workspace\"\n    },\n    {\n      \"stage\": \"integrity\",\n      \"ok\": true,\n      \"detail\": \"SHA-256 verified for 62 files\"\n    },\n    {\n      \"stage\": \"installer\",\n      \"ok\": true,\n      \"detail\": \"Canonical installer completed\",\n      \"output\": \"Installed scripts/build_distributions.py\\nInstalled scripts/lib/project_model.py\\nInstalled scripts/lib/canonical_skill_sources.py\\nInstalled scripts/lib/engine_package.py\\nInstalled scripts/lib/project_resource_audit.py\\nInstalled scripts/validate_distributions.py\\nInstalled scripts/validate_portable_skills.py\\nInstalled templates/START-HERE.chat.md.tpl\\nInstalled templates/README.plugin.md.tpl\\nInstalled templates/README.claude.md.tpl\\nInstalled templates/README.opencode.md.tpl\\nInstalled .gitignore\\n\"\n    },\n    {\n      \"stage\": \"build\",\n      \"ok\": true,\n      \"detail\": \"Canonical project and five peer distributions built\",\n      \"archive_count\": 6\n    }\n  ],\n  \"required_files\": [\n    \"gpt-project.yaml\",\n    \"scripts/build_distributions.py\",\n    \"scripts/install_distribution_engine.py\",\n    \"scripts/lib/project_model.py\",\n    \"scripts/validate_distributions.py\",\n    \"scripts/validate_portable_skills.py\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    "delivery": {
+      "exit_code": 1,
+      "stdout": "ERROR: Project status requires delivery.mode: zip or github\nERROR: Legacy delivery_mode field is not allowed; use delivery.mode\n",
+      "stderr": ""
+    },
+    "model_robustness": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "MODEL-ROBUSTNESS-001: workflow.mode must be explicit_state_machine\n"
+    },
+    "build": {
+      "exit_code": 0,
+      "stdout": "Build complete: /mnt/data/vcd-step5/dist\nDELIVERY-MANIFEST.json\nSHA256SUMS.txt\nvisual-concept-designer-chat-0.0.0-dev.zip\nvisual-concept-designer-claude-project-0.0.0-dev.zip\nvisual-concept-designer-claude-skills-0.0.0-dev.zip\nvisual-concept-designer-opencode-0.0.0-dev.zip\nvisual-concept-designer-plugin-0.0.0-dev.zip\nvisual-concept-designer-project-0.0.0-dev.zip\n",
+      "stderr": ""
+    },
+    "distribution_validation": {
+      "exit_code": 0,
+      "stdout": "VALIDATION: PASS\n",
+      "stderr": ""
+    },
+    "hygiene": {
+      "exit_code": 0,
+      "stdout": "{\n  \"result\": \"warning\",\n  \"mode\": \"final\",\n  \"removed\": [],\n  \"findings\": [\n    {\n      \"severity\": \"warning\",\n      \"code\": \"HY100\",\n      \"message\": \"Generated directory exists in source tree\",\n      \"path\": \"build/\"\n    },\n    {\n      \"severity\": \"warning\",\n      \"code\": \"HY100\",\n      \"message\": \"Generated directory exists in source tree\",\n      \"path\": \"dist/\"\n    },\n    {\n      \"severity\": \"warning\",\n      \"code\": \"HY110\",\n      \"message\": \"Cache directory found\",\n      \"path\": \"scripts/lib/__pycache__\"\n    },\n    {\n      \"severity\": \"warning\",\n      \"code\": \"HY200\",\n      \"message\": \"Filename suggests a historical/superseded copy; manual assessment required\",\n      \"path\": \"tests/cases/T25-specification-over-old-prompt.md\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    "release_readiness": {
+      "exit_code": 1,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"result\": \"blocked\",\n  \"gates\": {\n    \"project_status\": {\n      \"status\": \"blocked\"\n    },\n    \"lint\": {\n      \"status\": \"blocked\",\n      \"message\": \"Lint errors or unavailable.\"\n    },\n    \"final_hygiene\": {\n      \"status\": \"blocked\"\n    },\n    \"test_model\": {\n      \"status\": \"warning\"\n    },\n    \"runtime_parity\": {\n      \"status\": \"not_applicable\"\n    },\n    \"custom_gpt_platform_validation\": {\n      \"status\": \"not_applicable\"\n    },\n    \"build\": {\n      \"status\": \"blocked\",\n      \"message\": \"Expected build artifacts missing or incomplete.\"\n    },\n    \"distribution_validation\": {\n      \"status\": \"pass\"\n    }\n  },\n  \"distributions\": {\n    \"project_zip\": \"blocked\",\n    \"chat_zip\": \"blocked\",\n    \"claude_project_zip\": \"blocked\",\n    \"claude_skills_zip\": \"blocked\",\n    \"opencode_zip\": \"blocked\",\n    \"plugin_zip\": \"blocked\"\n  },\n  \"warnings\": [\n    \"Testing configuration missing.\"\n  ],\n  \"blockers\": [\n    \"Bildgenerering och bildanalys har inte verifierats funktionellt i de fem värdmiljöerna.\",\n    \"Build artifacts are missing or incomplete.\",\n    \"Faktisk GitHub Actions-körning har inte verifierats.\",\n    \"Final hygiene is blocked.\",\n    \"Lint is not clean.\",\n    \"Modellrobusthetskontrollen kräver workflow.mode=explicit_state_machine; nuvarande projektkontrakt är inte godkänt.\",\n    \"Release candidate E2E-scenario evals/e2e/blank-idea-001.yaml saknas.\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    "release_candidate": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/mnt/data/vcd-final-engine/scripts/validate_release_candidate.py\", line 72, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/mnt/data/vcd-final-engine/scripts/validate_release_candidate.py\", line 67, in main\n    result=validate(Path(args.project_root).resolve(),args.version)\n  File \"/mnt/data/vcd-final-engine/scripts/validate_release_candidate.py\", line 28, in validate\n    scenario=yaml.safe_load((root/\"evals\"/\"e2e\"/\"blank-idea-001.yaml\").read_text(encoding=\"utf-8\"))\n                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/pathlib/_local.py\", line 548, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/pathlib/_abc.py\", line 632, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/pathlib/_local.py\", line 539, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/mnt/data/vcd-step5/evals/e2e/blank-idea-001.yaml'\n"
+    },
+    "delivery_after_status_fix": {
+      "exit_code": 0,
+      "stdout": "Generated project source and delivery contract: OK"
+    },
+    "release_readiness_after_status_fix": {
+      "exit_code": 1,
+      "result": "blocked",
+      "details": "lint and final hygiene blocked, build artifacts incomplete under release-gate, host tests absent"
+    }
+  },
+  "not_verified": [
+    "Real image generation in five hosts",
+    "Real image analysis in five hosts",
+    "GitHub Actions execution"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "scope": "static source contract only; no model calls or image generation executed",
+  "checks": {
+    "source instruction exact parity": true,
+    "image generation invoked explicitly": true,
+    "no synthetic image fallback": true,
+    "uploaded sketch preservation": true,
+    "design reference is specification": true,
+    "locks require user confirmation": true,
+    "image generation error path": true,
+    "handoff limits documented": true,
+    "project versioned export": true,
+    "five runtime targets configured": true
+  },
+  "passed": 10,
+  "total": 10,
+  "source_sha256": "b531c369f82ecc702353bfdb78dc11a4d69fa1d293dc5d0391adcb9bea361c70"
+}

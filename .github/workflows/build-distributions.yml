@@ -36,26 +36,17 @@ jobs:
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Validate GPT Builder 1.5 canonical contract
-        run: python3 scripts/validate_gpt_builder_1_5_contract.py
+      - name: Install build dependency
+        run: python3 -m pip install PyYAML
 
-      - name: Validate Claude and OpenCode compatibility
-        run: python3 scripts/validate_claude_opencode_compatibility.py
+      - name: Validate source tests
+        run: python3 tests/validate_tests.py
 
-      - name: Validate OpenAI Plugin compatibility
-        run: python3 scripts/validate_openai_plugin_compatibility.py
-
-      - name: Validate runtime distribution registry
-        run: python3 scripts/validate_runtime_distribution_registry.py
-
-      - name: Final GPT Builder 1.5 migration gate
-        run: python3 scripts/validate_gpt_builder_1_5_migration.py
-
-      - name: Build distributions
-        run: python3 scripts/build_distributions.py --version "${{ steps.version.outputs.version }}"
+      - name: Build distributions (GPT Byggaren 1.6.33)
+        run: python3 scripts/build_distributions.py --project-root . --version "${{ steps.version.outputs.version }}"
 
       - name: Validate distributions
-        run: python3 scripts/validate_distributions.py --version "${{ steps.version.outputs.version }}"
+        run: python3 scripts/validate_distributions.py --project-root .
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4

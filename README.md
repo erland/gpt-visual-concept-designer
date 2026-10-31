@@ -58,26 +58,33 @@ Designspecifikationen är projektets sanningskälla. När en riktning är klar f
 Bildprompter kompileras internt från designspecifikationen. Endast bildrelevanta uppgifter skickas till Image generation. Vid fel görs ett enda omförsök med en minimal brief.
 
 
-## Distributionspaket
+## Distributioner med GPT Byggaren 1.6.33
 
-Repositoryt bygger aktiva runtime-distributioner från samma canonical GPT-kontrakt i `assistant/instructions.md`. Aktiva mål deklareras i `runtime-distribution-registry.yaml`:
+Den **aktiva** kanoniska beteendekällan är `canonical/core.md` tillsammans med
+`canonical/skills/visual-concept-design/behavior.md`. De äldre instruktionerna i
+`assistant/` och `gpt/` finns kvar för spårbarhet, inte som redigeringskälla.
 
-- `visual-concept-designer-custom-gpt-vX.Y.Z.zip` för installation/uppdatering av Custom GPT.
-- `visual-concept-designer-chat-vX.Y.Z.zip` för att bifogas direkt i en vanlig ChatGPT-konversation.
+Fem jämbördiga distributionsmål deklareras i `gpt-project.yaml`:
+ChatGPT Chat (`chat`), OpenAI Plugin (`plugin`), Claude Projects
+(`claude_project`), Claude Skills (`claude_skills`) och OpenCode (`opencode`).
+`custom_gpt` är ett historiskt, inaktiverat mål. `runtime-distribution-registry.yaml`
+och 1.5-kontraktet är historiskt material och får inte användas för att styra
+aktuella distributioner.
 
-Claude Projects, OpenCode och OpenAI Plugin är compatibility-bedömda men inte aktiva distributionsmål eftersom full parity för kritisk Image generation inte kan garanteras; Plugin har dessutom reducerad project-state-parity.
-
-Kör lokalt:
+Bygg och validera från projektroten (kräver Python och PyYAML):
 
 ```bash
-python3 scripts/build_distributions.py
-python3 scripts/validate_distributions.py
+python3 scripts/build_distributions.py --project-root .
+python3 scripts/validate_distributions.py --project-root .
 ```
 
-Vanliga byggen använder `VERSION`. Vid en publicerad GitHub Release används release-taggen som versionskälla. En release `v1.1.0` producerar alltså automatiskt båda `...v1.1.0.zip` och bifogar dem till releasen.
+GitHub Actions använder samma projektlokala 1.6.33-kompatibla motorfiler och
+kontrollerar samtliga distributionspaket. Den versionsstyrda originalmotorn
+är migreringens bas; använd inte en flytande `latest`-version vid uppdatering.
 
-Custom GPT-paketets huvudinstruktion, conversation starters och 20 numrerade Knowledge-filer kopieras utan innehållsförändring från de kanoniska källorna.
+**Viktigt:** godkänd byggning betyder att paketen är strukturellt korrekta,
+inte att bildgenerering eller bildanalys fungerar hos varje värd. Kontrollera
+värdkraven i `docs/runtime-image-requirements.md`. Ingen release har godkänts.
 
-## GPT Byggaren 1.5.0
-
-Migreringen är **7/7 komplett**. Canonical instruktion finns i `assistant/instructions.md`; `gpt/gpt-instructions.md` bevaras som legacy-kompatibel paketeringsyta. Build, validering och release-set härleds från `runtime-distribution-registry.yaml`. Version **1.0.0** och 20/20 Knowledge-filer är bevarade.
+Se `STATUS.md`, `docs/step-5-documentation-hygiene.md` och
+`docs/migration-verification.md` för aktuella resultat och avvikelser.
