@@ -42,6 +42,9 @@ jobs:
       - name: Validate source tests
         run: python3 tests/validate_tests.py
 
+      - name: Verify image workflow contract (static, not host E2E)
+        run: python3 tests/verify_image_workflow_contract.py
+
       - name: Build distributions (GPT Byggaren 1.6.33)
         run: python3 scripts/build_distributions.py --project-root . --version "${{ steps.version.outputs.version }}"
 
